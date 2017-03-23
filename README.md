@@ -30,8 +30,8 @@ Source code employs ES6 syntax traspiled down to ES5 using Babel.
 #### Contributing
 ---
 
-1. Fork this repositry to your account.
-2. Clone your repositry: git clone https://github.com/andela-oowonikoko/Document-Management-System.git
+1. Fork this repository to your account.
+2. Clone your repository: git clone https://github.com/andela-oowonikoko/Document-Management-System.git
 3. Create your feature branch: git checkout -b new-feature
 4. Commit your changes: git commit -m "did something"
 5. Push to the remote branch: git push origin new-feature
