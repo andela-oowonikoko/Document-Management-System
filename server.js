@@ -1,23 +1,18 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+const parser = require('body-parser');
+const route = require('./server/routes');
+
+const port = process.env.PORT || 8080;
 
 const app = express();
 
-// set the port of our application
-// process.env.PORT lets the port be set by Heroku
-const port = process.env.PORT || 8080;
+app.use(parser.urlencoded({ extended: true }));
+app.use(parser.json());
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// make express look in the public directory for assets (css/js/img)
-app.use(express.static(`${__dirname}/public`));
-
-// set the home page route
-app.get('/', (req, res) => {
-  res.send({ message: 'welcome to document management system' });
-});
+app.use('/', route);
 
 app.listen(port, () => {
-  console.log(`Our app is running on http://localhost:${port}`);
+  console.log(`Server started on ${port}`);
 });
+
+module.exports = app;
