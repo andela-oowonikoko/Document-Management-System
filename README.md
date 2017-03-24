@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/andela-oowonikoko/Document-Management-System.svg?branch=master)](https://travis-ci.org/andela-oowonikoko/Document-Management-System)
+[![Build Status](https://travis-ci.org/andela-oowonikoko/Document-Management-System.svg?branch=chore%2F%23142306411%2FIntegrate-TravisCI-with-readme-badge)](https://travis-ci.org/andela-oowonikoko/Document-Management-System)
 
 # Document-Management-System
 
