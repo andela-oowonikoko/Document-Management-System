@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andela-oowonikoko/Document-Management-System.svg?branch=chore%2F%23142306411%2FIntegrate-TravisCI-with-readme-badge)](https://travis-ci.org/andela-oowonikoko/Document-Management-System)
+
 # Document-Management-System
 
 This is a system (API) that manages documents with users and user roles. Each document defines access rights; the document defines which roles can access it. Also, each document specifies the date it was published. It is built with NodeJS, Express and Postgres as it's database.
