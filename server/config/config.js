@@ -2,7 +2,7 @@ module.exports = {
   development: {
     username: 'koko',
     password: 'owonikoko',
-    database: 'database_development',
+    database: 'dms-dev',
     host: '127.0.0.1',
     port: 5432,
     dialect: 'postgres'
@@ -10,7 +10,7 @@ module.exports = {
   test: {
     username: 'koko',
     password: 'owonikoko',
-    database: 'database_test',
+    database: 'dms-dev',
     host: '127.0.0.1',
     port: 5432,
     dialect: 'postgres'
@@ -18,7 +18,7 @@ module.exports = {
   production: {
     username: 'koko',
     password: 'owonikoko',
-    database: 'database_production',
+    database: 'dms-dev',
     host: '127.0.0.1',
     port: 5432,
     dialect: 'postgres'
