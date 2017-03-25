@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/andela-oowonikoko/Document-Management-System/badge.svg?branch=development)](https://coveralls.io/github/andela-oowonikoko/Document-Management-System?branch=development)
 [![Build Status](https://travis-ci.org/andela-oowonikoko/Document-Management-System.svg?branch=development)](https://travis-ci.org/andela-oowonikoko/Document-Management-System)
 
 # Document-Management-System
