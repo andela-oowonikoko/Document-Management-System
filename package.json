@@ -27,7 +27,12 @@
     "eslint": "^3.18.0",
     "express": "^4.15.2",
     "gulp": "^3.9.1",
-    "gulp-nodemon": "^2.2.1"
+    "gulp-nodemon": "^2.2.1",
+    "morgan": "^1.8.1",
+    "pg": "^6.1.5",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.3",
+    "sequelize-cli": "^2.7.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
