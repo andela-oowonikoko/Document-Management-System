@@ -96,7 +96,6 @@ describe('Document model', () => {
       db.Documents.create(accessError)
         .then()
         .catch((error) => {
-          console.log(error.errors[0]);
           expect(error.errors[0].message)
             .to.equal('public, private required');
           expect(error.errors[0].type)
