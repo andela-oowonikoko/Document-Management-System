@@ -88,25 +88,25 @@ describe('Document model', () => {
     });
   });
 
-  // describe('Access Violation', () => {
-  //   it('should return error when access is not public or private',
-  //   (done) => {
-  //     const accessError = Object.assign({}, helper.publicDocument);
-  //     accessError.access = 'andela';
-  //     db.Documents.create(accessError)
-  //       .then()
-  //       .catch((error) => {
-  //         console.log(error.errors[0]);
-  //         expect(error.errors[0].message)
-  //           .to.equal('public, private required');
-  //         expect(error.errors[0].type)
-  //           .to.equal('Validation error');
-  //         expect(error.errors[0].path)
-  //           .to.equal('access');
-  //         done();
-  //       });
-  //   });
-  // });
+  describe('Access Violation', () => {
+    it('should return error when access is not public or private',
+    (done) => {
+      const accessError = Object.assign({}, helper.publicDocument);
+      accessError.access = 'andela';
+      db.Documents.create(accessError)
+        .then()
+        .catch((error) => {
+          console.log(error.errors[0]);
+          expect(error.errors[0].message)
+            .to.equal('public, private required');
+          expect(error.errors[0].type)
+            .to.equal('Validation error');
+          expect(error.errors[0].path)
+            .to.equal('access');
+          done();
+        });
+    });
+  });
 
   describe('UPDATE Document', () => {
     let newDocument;
