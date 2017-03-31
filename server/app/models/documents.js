@@ -36,6 +36,9 @@ module.exports = (sequelize, DataTypes) => {
         },
       }
     },
+    ownerRoleId: {
+      type: DataTypes.STRING
+    },
     complete: DataTypes.BOOLEAN
   }, {
     classMethods: {

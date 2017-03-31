@@ -43,6 +43,11 @@ const helper = {
     lastName: faker.name.lastName(),
     email: faker.internet.email(),
     password: 'koko'
+  },
+  publicDocument: {
+    title: faker.company.catchPhrase(),
+    content: faker.lorem.paragraph(),
+    access: 'public'
   }
 };
 export default helper;
