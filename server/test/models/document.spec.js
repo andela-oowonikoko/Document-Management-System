@@ -1,10 +1,10 @@
 import chai from 'chai';
-import db from '../../app/models';
+import db from '../../app/models/';
 import helper from '../helper/test.helper';
 
 const expect = chai.expect;
 
-describe('Document model', () => {
+describe('Document Model', () => {
   let userDocument;
   let regularUser;
   const requiredFields = ['title', 'content'];
@@ -21,14 +21,11 @@ describe('Document model', () => {
       });
   });
 
-  after((done) => {
-    db.Roles.destroy({ where: {} });
-    done();
-  });
+  after((done) => { db.Roles.destroy({ where: {} }); done(); });
 
-  describe('Create document', () => {
+  describe('CREATE Document', () => {
     it('should create a document', (done) => {
-      helper.publicDocument.ownerRoleId = regularUser.roleId;
+      helper.publicDocument.ownerRoleId = regularUser.rolesId;
       helper.publicDocument.ownerId = regularUser.id;
       db.Documents.create(helper.publicDocument)
         .then((doc) => {
@@ -46,7 +43,7 @@ describe('Document model', () => {
     });
   });
 
-  describe('Not null violation', () => {
+  describe('Not Null Violation', () => {
     requiredFields.forEach((field) => {
       it('should return "not null Violation message"', (done) => {
         const notNull = Object.assign({}, helper.publicDocument);
@@ -68,7 +65,7 @@ describe('Document model', () => {
     });
   });
 
-  describe('Empty string', () => {
+  describe('EMPTY STRING', () => {
     emptyFields.forEach((field) => {
       it('should return error', (done) => {
         const emptyString = Object.assign({}, helper.publicDocument);
@@ -81,15 +78,15 @@ describe('Document model', () => {
             expect(error.errors[0].type)
               .to.equal('Validation error');
             expect(error.errors[0].path)
-              .to.equal(field);
+            .to.equal(field);
             done();
           });
       });
     });
   });
 
-  describe('Access Violation', () => {
-    it('should return error when access is not public or private',
+  describe('ACCESS Violation', () => {
+    it('should return error when access is not public, private or role',
     (done) => {
       const accessError = Object.assign({}, helper.publicDocument);
       accessError.access = 'andela';
@@ -112,7 +109,7 @@ describe('Document model', () => {
     beforeEach((done) => {
       db.Documents.findById(userDocument.id)
         .then((doc) => {
-          doc.update({ title: 'new andela book' })
+          doc.update({ title: 'new note' })
             .then((updatedDocument) => {
               newDocument = updatedDocument;
               done();
@@ -120,13 +117,13 @@ describe('Document model', () => {
         });
     });
 
-    it('should give the correct result after updating', (done) => {
+    it('should give the correct result', (done) => {
       db.Documents.findById(userDocument.id)
         .then((doc) => {
           expect(doc.dataValues.id)
             .to.equal(newDocument.id);
           expect(doc.dataValues.title)
-            .to.equal('new andela book');
+            .to.equal('new note');
           expect(doc.dataValues.content)
             .to.equal(userDocument.content);
           expect(doc.dataValues.access)
