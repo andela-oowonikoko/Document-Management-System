@@ -9,7 +9,7 @@ const secretKey = process.env.SECRETKEY;
 
 const Auth = {
   /**
-   * Varify user token
+   * Verify user token
    * @param {Object} req request object
    * @param {Object} res response object
    * @param {Object} next move to next controller handler
@@ -294,6 +294,68 @@ const Auth = {
       .catch(err => res.status(500).send(err.errors));
   },
   /**
+   * Get a single user's document
+   * @param {Object} req req object
+   * @param {Object} res response object
+   * @param {Object} next Move to next controller handler
+   * @returns {void|Object} response object or void
+   */
+  getSingleDocument(req, res, next) {
+    db.Documents
+      .findById(req.params.id)
+      .then((document) => {
+        if (!document) {
+          return res.status(404)
+            .send({
+              message: 'This document cannot be found'
+            });
+        }
+        if (!Helper.isPublic(document) && !Helper.isOwnerDoc(document, req)
+           && !Helper.isAdmin(req.tokenDecode.rolesId)
+           && !Helper.hasRoleAccess(document, req)) {
+          return res.status(401)
+            .send({
+              message: 'You are not permitted to view this document'
+            });
+        }
+        req.singleDocument = document;
+        next();
+      })
+      .catch(error => res.status(500).send(error.errors));
+  },
+  /**
+   * Get a single user's document after searching by title
+   * @param {Object} req req object
+   * @param {Object} res response object
+   * @param {Object} next Move to next controller handler
+   * @returns {void|Object} response object or void
+   */
+  getDocumentByTitle(req, res, next) {
+    db.Documents
+      .findOne({
+        where: { title: req.query.q },
+      })
+      .then((document) => {
+        if (!document) {
+          return res.status(404)
+            .send({
+              message: 'This document cannot be found'
+            });
+        }
+        if (!Helper.isPublic(document) && !Helper.isOwnerDoc(document, req)
+           && !Helper.isAdmin(req.tokenDecode.rolesId)
+           && !Helper.hasRoleAccess(document, req)) {
+          return res.status(401)
+            .send({
+              message: 'You are not permitted to view this document'
+            });
+        }
+        req.singleDocument = document;
+        next();
+      })
+      .catch(error => res.status(500).send(error.errors));
+  },
+  /**
    * Get a single user's profile
    * @param {Object} req req object
    * @param {Object} res response object
@@ -444,6 +506,83 @@ const Auth = {
         next();
       });
   },
+  /**
+   * Validate documents input
+   * @param {Object} req req object
+   * @param {Object} res response object
+   * @param {Object} next Move to next controller handler
+   * @returns {void|Object} response object or void
+   */
+  validateDocumentsInput(req, res, next) {
+    const title = /\w+/g.test(req.body.title);
+    const content = /\w+/g.test(req.body.content);
+    if (!req.body.title) {
+      return res.status(400)
+        .send({
+          message: 'Title field is required'
+        });
+    }
+    if (!req.body.content) {
+      return res.status(400)
+        .send({
+          message: 'Content field is required'
+        });
+    }
+    if (!title) {
+      return res.status(400)
+        .send({
+          message: 'Please enter a valid title'
+        });
+    }
+    if (!content) {
+      return res.status(400)
+        .send({
+          message: 'Please enter a valid content'
+        });
+    }
+    if (req.body.access
+      && !['public', 'private'].includes(req.body.access)) {
+      return res.status(400)
+        .send({
+          message: 'Access type can only be public or private'
+        });
+    }
+    req.docInput = {
+      title: req.body.title,
+      content: req.body.content,
+      ownerId: req.tokenDecode.userId,
+      access: req.body.access,
+      ownerRoleId: req.tokenDecode.roleId
+    };
+    next();
+  },
+  /**
+   * Check for document edit and delete permission
+   * @param {Object} req req object
+   * @param {Object} res response object
+   * @param {Object} next Move to next controller handler
+   * @returns {void|Object} response object or void
+   */
+  hasDocumentPermission(req, res, next) {
+    db.Documents.findById(req.params.id)
+      .then((doc) => {
+        if (!doc) {
+          return res.status(404)
+            .send({
+              message: 'This document does not exist'
+            });
+        }
+        if (!Helper.isOwnerDoc(doc, req)
+          && !Helper.isAdmin(req.tokenDecode.roleId)) {
+          return res.status(401)
+            .send({
+              message: 'You are not permitted to modify this document'
+            });
+        }
+        req.docInstance = doc;
+        next();
+      });
+  }
 };
 
 export default Auth;

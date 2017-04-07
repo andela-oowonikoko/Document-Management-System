@@ -119,7 +119,7 @@ const User = {
   },
   /**
     * Get user by username
-    * Route: GET: /search/users/?query=
+    * Route: GET: /search/users/?q=
     * @param {Object} req request object
     * @param {Object} res response object
     * @returns {void|Response} response object or void
