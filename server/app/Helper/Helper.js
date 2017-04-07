@@ -18,6 +18,14 @@ const Helper = {
   isOwner(req) {
     return String(req.tokenDecode.userId) === String(req.params.id);
   },
+  /**
+   * Check for regular permission
+   * @param {String} roleId user role id
+   * @returns {Boolean} true or false
+   */
+  isRegular(roleId) {
+    return roleId === 2;
+  },
    /**
    * Get user's profile'
    * @param {Object} data object containing user's details
