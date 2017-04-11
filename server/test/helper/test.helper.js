@@ -48,6 +48,13 @@ const helper = {
     title: faker.company.catchPhrase(),
     content: faker.lorem.paragraph(),
     access: 'public'
+  },
+  adminUser: {
+    username: faker.internet.userName(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName(),
+    email: faker.internet.email(),
+    password: faker.internet.password()
   }
 };
 export default helper;
