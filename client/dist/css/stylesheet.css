@@ -1,0 +1,17 @@
+body {
+  /*background-image: url('../images/docImage.jpg');*/
+}
+
+.nav-wrapper {
+  background-color: #18aa8d;
+}
+
+.side-nav {
+  background-color: #18aa8d;
+  color: #ffffff;
+  padding-top: 15px;
+}
+
+a {
+  color: #ffffff;
+}
