@@ -3,21 +3,23 @@ import React, { Component } from 'react';
 import Navbar from './Nav.component';
 import SignupForm from './SignupForm.component';
 import { userSignupRequest } from '../actions/signupActions';
+import { addFlashMessage } from '../actions/flashMessages';
 
 class SignupPage extends Component {
   render() {
-    const userSignupRequest = this.props.userSignupRequest;
+    const { userSignupRequest, addFlashMessage } = this.props;
     return (
       <div>
         <Navbar isHomeActive="" isLoginActive="" isSignupActive="active" />
-        <SignupForm userSignupRequest={userSignupRequest} />
+        <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
       </div>
     );
   }
 }
 
 SignupPage.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
+  userSignupRequest: React.PropTypes.func.isRequired,
+  addFlashMessage: React.PropTypes.func.isRequired
 };
 
-export default connect(null, { userSignupRequest })(SignupPage);
+export default connect(null, { userSignupRequest, addFlashMessage })(SignupPage);
