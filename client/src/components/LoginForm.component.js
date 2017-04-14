@@ -19,18 +19,17 @@ class LoginForm extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.userLoginRequest(this.state).then((res) => {
-      localStorage.setItem('token', res.data.token);
-      this.context.router.history.push('/app/createdocument');
+      this.context.router.history.push('/app/home');
     }).catch((err) => {
-      swal({
-        title: 'Error!',
-        text: err.response.data.message,
-        type: 'error',
-        confirmButtonColor: '#18aa8d',
-        confirmButtonText: 'Ok',
-        closeOnConfirm: false,
-        html: false
-      });
+        swal({
+          title: 'Error!',
+          text: err.response.data.message,
+          type: 'error',
+          confirmButtonColor: '#18aa8d',
+          confirmButtonText: 'Ok',
+          closeOnConfirm: false,
+          html: false
+        });
     });
   }
   /**
