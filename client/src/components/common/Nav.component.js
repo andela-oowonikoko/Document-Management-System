@@ -24,7 +24,7 @@ class Navbar extends Component {
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li className={this.props.isHomeActive}>
               {isAuthenticated
-                ? <a href="/app/document">Document</a>
+                ? <a href="/app/home">Document</a>
                 : <a href="/app/home">Home</a>
               }
             </li>

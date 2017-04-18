@@ -19,7 +19,9 @@ class LoginForm extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.userLoginRequest(this.state).then((res) => {
-      this.context.router.history.push('/app/document');
+      this.context.router.history.push('/app/document')
+      .then((res) => {
+      })
     }).catch((err) => {
         swal({
           title: 'Error!',

@@ -16,14 +16,6 @@ export function logout() {
     localStorage.removeItem('token');
     setHeaderToken(false);
     dispatch(setCurrentUser({}));
-    swal({
-      title: 'Logout Succesful',
-      type: 'success',
-      confirmButtonColor: '#9068be',
-      confirmButtonText: 'Ok',
-      closeOnConfirm: false,
-      html: false
-    });
   };
 }
 

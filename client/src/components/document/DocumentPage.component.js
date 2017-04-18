@@ -1,23 +1,56 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import DocumentsList from './DocumentList.component';
 import Navbar from '../common/Nav.component';
-import DocumentForm from './DocumentForm.component';
-import { userDocumentRequest } from '../../actions/fetchDocumentAction';
+import { fetchDocuments, deleteDocument } from '../../actions/documentActions';
+import Search from '../common/Search.component';
 
-class DocumentPage extends Component {
+class DocumentPage extends React.Component {
+  componentDidMount() {
+    this.props.fetchDocuments();
+  }
+
+  handleSearch() {
+
+  }
+ 
   render() {
-    const userDocumentRequest = this.props.userDocumentRequest;
     return (
       <div>
         <Navbar isHomeActive="active" isLoginActive="" isSignupActive="" />
-        <DocumentForm userDocumentRequest={userDocumentRequest} />
+        <div>
+          <h1>Documents List</h1>
+          <div className="row">
+            <div className="col s7 push-s4">
+              <Search onChange={this.handleSearch} />
+            </div>
+            <div className="col s5 pull-s7">
+              <Link className="btn create-list-link hero-btn" to="document">
+                Add Document
+              </Link>
+            </div>
+          </div>
+          <DocumentsList
+            documents={this.props.documents}
+            deleteDocument={this.props.deleteDocument}
+          />
+        </div>
       </div>
     );
   }
 }
 
 DocumentPage.propTypes = {
-  userDocumentRequest: React.PropTypes.func.isRequired
+  documents: React.PropTypes.array.isRequired,
+  fetchDocuments: React.PropTypes.func.isRequired,
+  deleteDocument: React.PropTypes.func.isRequired,
 };
 
-export default connect(null, { userDocumentRequest })(DocumentPage);
+function mapStateToProps(state) {
+  return {
+    documents: state.documents,
+  };
+}
+
+export default connect(mapStateToProps, { fetchDocuments, deleteDocument })(DocumentPage);
