@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import Navbar from './Nav.component';
+import Navbar from '../common/Nav.component';
 import LoginForm from './LoginForm.component';
-import { userLoginRequest } from '../actions/loginActions';
+import { userLoginRequest } from '../../actions/loginActions';
 
 class LoginPage extends Component {
   render() {

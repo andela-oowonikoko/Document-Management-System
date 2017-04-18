@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { logout } from '../../actions/loginActions';
 
 class Navbar extends Component {
   /**
@@ -7,6 +8,12 @@ class Navbar extends Component {
    * @returns {void}
    * @memberOf Navbar
    */
+  logout(event) {
+    event.preventDefault();
+    this.props.logout();
+    this.context.router.history.push('/app/login');
+  }
+
   render() {
     const { isAuthenticated } = this.props.auth;
 
@@ -29,7 +36,7 @@ class Navbar extends Component {
             </li>
             <li className={this.props.isSignupActive}>
               {isAuthenticated
-                ? <a href="/app/logout" >Logout</a>
+                ? <a href="/app/logout" onClick={this.logout.bind(this)} >Logout</a>
                 : <a href="/app/signup">Signup</a>
               }
             </li>
@@ -44,7 +51,12 @@ Navbar.propTypes = {
   auth: React.PropTypes.object.isRequired,
   isHomeActive: React.PropTypes.string.isRequired,
   isLoginActive: React.PropTypes.string.isRequired,
-  isSignupActive: React.PropTypes.string.isRequired
+  isSignupActive: React.PropTypes.string.isRequired,
+  logout: React.PropTypes.func.isRequired
+};
+
+Navbar.contextTypes = {
+  router: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -53,4 +65,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

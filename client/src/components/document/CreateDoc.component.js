@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SideNav from './SideNav.component';
+import SideNav from '../common/SideNav.component';
 
 class CreateDoc extends Component {
   /**

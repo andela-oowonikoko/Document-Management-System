@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import Navbar from './Nav.component';
+import Navbar from '../common/Nav.component';
 import SignupForm from './SignupForm.component';
-import { userSignupRequest } from '../actions/signupActions';
-import { addFlashMessage } from '../actions/flashMessages';
+import { userSignupRequest } from '../../actions/signupActions';
+import { addFlashMessage } from '../../actions/flashMessages';
 
 class SignupPage extends Component {
   render() {

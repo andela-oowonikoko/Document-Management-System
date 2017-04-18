@@ -26,7 +26,7 @@ class SignupForm extends Component {
         type: 'success',
         text: 'You have signed up succesfully'
       });
-      this.context.router.history.push('/app/login');
+      this.context.router.history.push('/app/document');
     })
     .catch((err) => {
       swal({

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import swal from 'sweetalert';
 import jwt from 'jsonwebtoken';
 import setHeaderToken from '../utils/setHeaderToken';
 import { SET_CURRENT_USER } from './types';
@@ -7,6 +8,22 @@ export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
     user
+  };
+}
+
+export function logout() {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    setHeaderToken(false);
+    dispatch(setCurrentUser({}));
+    swal({
+      title: 'Logout Succesful',
+      type: 'success',
+      confirmButtonColor: '#9068be',
+      confirmButtonText: 'Ok',
+      closeOnConfirm: false,
+      html: false
+    });
   };
 }
 
