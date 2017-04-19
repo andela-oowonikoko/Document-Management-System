@@ -20,13 +20,12 @@ class DocumentPage extends React.Component {
       <div>
         <Navbar isHomeActive="active" isLoginActive="" isSignupActive="" />
         <div>
-          <h1>Documents List</h1>
           <div className="row">
             <div className="col s7 push-s4">
               <Search onChange={this.handleSearch} />
             </div>
-            <div className="col s5 pull-s7">
-              <Link className="btn create-list-link hero-btn" to="document">
+            <div className="col s5 pull-s7 btnViewDocuments">
+              <Link className="btn create-list-link hero-btn" to="/app/createdocument">
                 Add Document
               </Link>
             </div>

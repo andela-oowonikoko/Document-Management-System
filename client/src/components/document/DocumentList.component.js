@@ -7,7 +7,7 @@ export default function DocumentsList({ documents, deleteDocument }) {
   );
 
   const documentsList = (
-    <div>
+    <div className="row">
       {documents.map(document => <DocumentCard document={document} key={document.id} deleteDocument={deleteDocument} />)}
     </div>
   );

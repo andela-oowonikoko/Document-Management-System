@@ -18,4 +18,26 @@ a {
 
 .card {
   background-color: #18aa8d;
+  height: 200px;
+}
+
+.qBox{
+  box-shadow: 10px 10px 30px #333;
+}
+
+.btnViewDocuments {
+  margin-top: 15px;
+  margin-left: 5px;
+}
+
+.red {
+  color: #f44336;
+}
+
+.blue {
+  color: #2196f3;
+}
+
+.documentDate {
+  color: #ffffff;
 }

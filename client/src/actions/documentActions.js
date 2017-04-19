@@ -1,4 +1,5 @@
 import axios from 'axios';
+import swal from 'sweetalert';
 import { SET_DOCUMENTS, ADD_DOCUMENT, DOCUMENT_FETCHED, DOCUMENT_UPDATED, DOCUMENT_DELETED } from './types';
 
 function handleResponse(response) {
@@ -80,10 +81,22 @@ export function updateDocument(data) {
       .then(data => dispatch(documentUpdated(data.document)));
   };
 }
+
 export function deleteDocument(id) {
   return (dispatch) => {
     return axios.delete(`/documents/${id}`)
       .then(res => res.data)
-      .then(data => dispatch(documentDeleted(id)));
+      .then(data => dispatch(documentDeleted(id)))
+      .catch((err) => {
+        swal({
+          title: 'Error!',
+          text: err.response.data.message,
+          type: 'error',
+          confirmButtonColor: '#18aa8d',
+          confirmButtonText: 'Ok',
+          closeOnConfirm: false,
+          html: false
+        });
+      });
   };
 }
