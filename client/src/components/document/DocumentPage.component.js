@@ -34,7 +34,7 @@ class DocumentPage extends React.Component {
 
     return (
       <div>
-        <Navbar isHomeActive="active" isLoginActive="" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="active" isLoginActive="" isSignupActive="" />
         <div>
           <div className="row">
             <div className="col s7 push-s4">

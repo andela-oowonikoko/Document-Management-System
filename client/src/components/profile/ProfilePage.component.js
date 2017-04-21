@@ -13,7 +13,7 @@ class ProfilePage extends Component {
   render() {
     return (
       <div>
-        <Navbar isHomeActive="" isLoginActive="active" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="" isLoginActive="active" isSignupActive="" />
         <ProfileForm user={this.props.user} getUser={this.props.getUser} updateUser={this.props.updateUser} />
       </div>
     );

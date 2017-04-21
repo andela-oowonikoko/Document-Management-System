@@ -7,6 +7,7 @@ import Signup from '../signup/SignupPage.component';
 import Document from '../document/DocumentPage.component';
 import CreateDocument from '../document/CreateDocumentPage.component';
 import Profile from '../profile/ProfilePage.component';
+import Users from '../user/UserPage.component';
 
 class App extends Component {
   /**
@@ -24,6 +25,7 @@ class App extends Component {
           <Route path="/app/document" component={Document} />
           <Route path="/app/createdocument" component={CreateDocument} />
           <Route path="/app/profile" component={Profile} />
+          <Route path="/app/users" component={Users} />
         </div>
       </BrowserRouter>
     );

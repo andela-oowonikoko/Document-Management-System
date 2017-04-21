@@ -16,3 +16,12 @@ export function searchDocuments(queryString) {
       });
   };
 }
+
+export function searchUsers(queryString) {
+  return (dispatch) => {
+    return axios.get(`/search/users/?q=${queryString}`)
+      .then((res) => {
+        dispatch(documentsSearched([res.data.user]));
+      });
+  };
+}

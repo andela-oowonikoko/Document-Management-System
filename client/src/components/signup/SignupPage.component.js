@@ -10,7 +10,7 @@ class SignupPage extends Component {
     const { userSignupRequest, addFlashMessage } = this.props;
     return (
       <div>
-        <Navbar isHomeActive="" isLoginActive="" isSignupActive="active" />
+        <Navbar isUserActive="" isHomeActive="" isLoginActive="" isSignupActive="active" />
         <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
       </div>
     );

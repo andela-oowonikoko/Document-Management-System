@@ -457,6 +457,12 @@ const Auth = {
               message: 'This user does not exist'
             });
         }
+        if (Helper.isAdmin(user.rolesId) && user.id === 1) {
+          return res.status(403)
+            .send({
+              message: 'You can not delete the default admin user'
+            });
+        }
         req.userInstance = user;
         next();
       });
