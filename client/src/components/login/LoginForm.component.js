@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import swal from 'sweetalert';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -23,15 +22,7 @@ class LoginForm extends Component {
       .then((res) => {
       })
     }).catch((err) => {
-        swal({
-          title: 'Error!',
-          text: err.response.data.message,
-          type: 'error',
-          confirmButtonColor: '#18aa8d',
-          confirmButtonText: 'Ok',
-          closeOnConfirm: false,
-          html: false
-        });
+      Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
   }
   /**

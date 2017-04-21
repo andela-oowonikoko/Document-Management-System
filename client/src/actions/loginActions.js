@@ -1,5 +1,4 @@
 import axios from 'axios';
-import swal from 'sweetalert';
 import jwt from 'jsonwebtoken';
 import setHeaderToken from '../utils/setHeaderToken';
 import { SET_CURRENT_USER } from './types';
@@ -27,6 +26,7 @@ export function userLoginRequest(userData) {
         localStorage.setItem('token', token);
         setHeaderToken(token);
         dispatch(setCurrentUser(jwt.decode(token)));
+        Materialize.toast(res.data.message, 4000, 'rounded');
       });
   };
 }

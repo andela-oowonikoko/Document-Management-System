@@ -22,17 +22,11 @@ class CreateDocument extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.saveDocument(this.state).then((res) => {
-      this.context.router.history.push('/app/document');
-    }).catch((err) => {
-      swal({
-        title: 'Error!',
-        text: err.response.data.message,
-        type: 'error',
-        confirmButtonColor: '#18aa8d',
-        confirmButtonText: 'Ok',
-        closeOnConfirm: false,
-        html: false
+      this.context.router.history.push('/app/document').then(() => {
+        Materialize.toast(res.data.message, 4000, 'rounded');
       });
+    }).catch((err) => {
+      Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
   }
 

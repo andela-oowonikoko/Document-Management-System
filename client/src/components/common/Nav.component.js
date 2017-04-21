@@ -22,9 +22,15 @@ class Navbar extends Component {
         <div className="nav-wrapper">
           <div className="brand-logo">Document Management System</div>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
+            <li className={this.props.isUserActive}>
+              {(this.props.roles === 1)
+                ? <a href="/app/users">Users</a>
+                : ''
+              }
+            </li>
             <li className={this.props.isHomeActive}>
               {isAuthenticated
-                ? <a href="/app/home">Document</a>
+                ? <a href="/app/document">Document</a>
                 : <a href="/app/home">Home</a>
               }
             </li>
@@ -49,6 +55,7 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   auth: React.PropTypes.object.isRequired,
+  isUserActive: React.PropTypes.string.isRequired,
   isHomeActive: React.PropTypes.string.isRequired,
   isLoginActive: React.PropTypes.string.isRequired,
   isSignupActive: React.PropTypes.string.isRequired,
@@ -62,6 +69,7 @@ Navbar.contextTypes = {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
+    roles: state.auth.roles
   };
 }
 

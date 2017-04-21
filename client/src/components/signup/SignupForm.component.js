@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import swal from 'sweetalert';
 
 class SignupForm extends Component {
   constructor(props) {
@@ -29,15 +28,7 @@ class SignupForm extends Component {
       this.context.router.history.push('/app/document');
     })
     .catch((err) => {
-      swal({
-        title: 'Error!',
-        text: err.response.data.message,
-        type: 'error',
-        confirmButtonColor: '#18aa8d',
-        confirmButtonText: 'Ok',
-        closeOnConfirm: false,
-        html: false
-      });
+      Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
   }
 

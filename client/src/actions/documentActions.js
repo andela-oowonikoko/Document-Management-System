@@ -76,27 +76,25 @@ export function fetchDocument(id) {
 
 export function updateDocument(data) {
   return (dispatch) => {
-    return axios.put(`/documents/${data.id}`)
-      .then(res => res.data)
-      .then(data => dispatch(documentUpdated(data.document)));
+    return axios.put(`/documents/${data.id}`, data)
+      .then(res => {
+        res.data;
+        window.location = '/app/document';
+      })
+      .then(data => dispatch(documentUpdated(data)));
   };
 }
 
 export function deleteDocument(id) {
   return (dispatch) => {
     return axios.delete(`/documents/${id}`)
-      .then(res => res.data)
+      .then(res => {
+        res.data;
+        Materialize.toast(res.data.message, 4000, 'rounded');
+      })
       .then(data => dispatch(documentDeleted(id)))
       .catch((err) => {
-        swal({
-          title: 'Error!',
-          text: err.response.data.message,
-          type: 'error',
-          confirmButtonColor: '#18aa8d',
-          confirmButtonText: 'Ok',
-          closeOnConfirm: false,
-          html: false
-        });
+        Materialize.toast(err.response.data.message, 4000, 'rounded');
       });
   };
 }

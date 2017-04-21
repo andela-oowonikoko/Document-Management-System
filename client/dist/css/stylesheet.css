@@ -41,3 +41,12 @@ a {
 .documentDate {
   color: #ffffff;
 }
+
+.btn-floating {
+  margin-right: 5px;
+  opacity: 0.9;
+}
+
+.btn-floating:hover {
+  opacity: 1;
+}
