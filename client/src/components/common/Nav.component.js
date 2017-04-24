@@ -34,8 +34,11 @@ class Navbar extends Component {
                 : <a href="/app/home">Home</a>
               }
             </li>
-            <li className={this.props.isUserActive}>
-              <a href="/app/mydocument">My Documents</a>
+            <li className={this.props.isDocumentActive}>
+              {isAuthenticated
+                ? <a href="/app/mydocument">My Documents</a>
+                : ''
+              }
             </li>
             <li className={this.props.isLoginActive}>
               {isAuthenticated
@@ -62,6 +65,7 @@ Navbar.propTypes = {
   isHomeActive: React.PropTypes.string.isRequired,
   isLoginActive: React.PropTypes.string.isRequired,
   isSignupActive: React.PropTypes.string.isRequired,
+  isDocumentActive: React.PropTypes.string.isRequired,
   logout: React.PropTypes.func.isRequired
 };
 

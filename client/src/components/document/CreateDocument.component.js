@@ -39,7 +39,7 @@ class CreateDocument extends Component {
     return (
       <div>
         <div className="row btnViewDocuments">
-          <Link className="btn create-list-link hero-btn" to="/app/document">
+          <Link className="btn create-list-link hero-btn" to="/app/mydocument">
             View Documents
           </Link>
         </div>

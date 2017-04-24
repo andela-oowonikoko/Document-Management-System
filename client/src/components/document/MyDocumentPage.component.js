@@ -1,13 +1,13 @@
-import React from 'react';
 import { connect } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import DocumentsList from './DocumentList.component';
 import Navbar from '../common/Nav.component';
-import { fetchDocuments, deleteDocument, updateDocument } from '../../actions/documentActions';
-import { searchDocuments } from '../../actions/searchActions';
+import MyDocumentList from './MyDocumentList.component';
+import { deleteDocument, updateDocument, fetchDocument } from '../../actions/documentActions';
 import Search from '../common/Search.component';
+import { searchDocuments } from '../../actions/searchActions';
 
-class DocumentPage extends React.Component {
+class MyDocumentPage extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -17,7 +17,7 @@ class DocumentPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchDocuments();
+    this.props.fetchDocument(this.props.auth.user.userId);
   }
 
   handleSearch(e) {
@@ -34,14 +34,19 @@ class DocumentPage extends React.Component {
 
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="active" isDocumentActive="" isLoginActive="" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="" isDocumentActive="active" isLoginActive="" isSignupActive="" />
         <div>
           <div className="row">
             <div className="col s7 push-s4">
               <Search onChange={this.handleSearch} />
             </div>
+            <div className="col s5 pull-s7 btnViewDocuments">
+              <Link className="btn create-list-link hero-btn" to="/app/createdocument">
+                Add Document
+              </Link>
+            </div>
           </div>
-          <DocumentsList
+          <MyDocumentList
             documents={renderedDocuments}
             deleteDocument={this.props.deleteDocument}
             updateDocument={this.props.updateDocument}
@@ -53,17 +58,18 @@ class DocumentPage extends React.Component {
   }
 }
 
-DocumentPage.propTypes = {
+MyDocumentPage.propTypes = {
   documents: React.PropTypes.array.isRequired,
-  fetchDocuments: React.PropTypes.func.isRequired,
+  fetchDocument: React.PropTypes.func.isRequired,
   deleteDocument: React.PropTypes.func.isRequired,
   updateDocument: React.PropTypes.func.isRequired,
   search: React.PropTypes.array.isRequired,
   searchDocuments: React.PropTypes.func.isRequired,
+  userId: React.PropTypes.number.isRequired,
   auth: React.PropTypes.object.isRequired
 };
 
-DocumentPage.contextTypes = {
+MyDocumentPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
@@ -71,8 +77,9 @@ function mapStateToProps(state) {
   return {
     documents: state.documents,
     search: state.search,
+    userId: state.auth.user.userId,
     auth: state.auth
   };
 }
 
-export default connect(mapStateToProps, { fetchDocuments, deleteDocument, updateDocument, searchDocuments })(DocumentPage);
+export default connect(mapStateToProps, { deleteDocument, updateDocument, searchDocuments, fetchDocument })(MyDocumentPage);
