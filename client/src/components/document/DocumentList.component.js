@@ -1,14 +1,21 @@
 import React from 'react';
 import DocumentCard from './DocumentCard.component';
 
-export default function DocumentsList({ documents, deleteDocument, updateDocument }) {
+export default function DocumentsList({ documents, deleteDocument, updateDocument, currentUser }) {
   const emptyMessage = (
     <p>There are no documents yet in your collection.</p>
   );
 
   const documentsList = (
     <div className="row">
-      {documents.map(document => <DocumentCard document={document} key={document.id} deleteDocument={deleteDocument} updateDocument={updateDocument} />)}
+      {documents.map(document => 
+        <DocumentCard 
+          document={document}
+          key={document.id}
+          deleteDocument={deleteDocument}
+          updateDocument={updateDocument}
+          currentUser={currentUser}
+        />)}
     </div>
   );
 
@@ -22,5 +29,6 @@ export default function DocumentsList({ documents, deleteDocument, updateDocumen
 DocumentsList.propTypes = {
   documents: React.PropTypes.array.isRequired,
   deleteDocument: React.PropTypes.func.isRequired,
-  updateDocument: React.PropTypes.func.isRequired
+  updateDocument: React.PropTypes.func.isRequired,
+  currentUser: React.PropTypes.object.isRequired
 };

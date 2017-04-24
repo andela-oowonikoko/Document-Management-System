@@ -10,6 +10,9 @@ import Search from '../common/Search.component';
 class DocumentPage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      query: ''
+    };
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -20,16 +23,13 @@ class DocumentPage extends React.Component {
   handleSearch(e) {
     e.preventDefault();
     const query = e.target.value;
-    if (query === '') {
-      window.location = '/app/document';
-    } else {
-      this.props.searchDocuments(query);
-    }
+    this.setState({ query });
+    this.props.searchDocuments(query);
   }
 
   render() {
     const documentSearchResult = this.props.search;
-    const renderedDocuments = documentSearchResult.length > 0
+    const renderedDocuments = this.state.query.trim().length > 0
       ? documentSearchResult : this.props.documents;
 
     return (
@@ -50,6 +50,7 @@ class DocumentPage extends React.Component {
             documents={renderedDocuments}
             deleteDocument={this.props.deleteDocument}
             updateDocument={this.props.updateDocument}
+            currentUser={this.props.auth.user}
           />
         </div>
       </div>
@@ -63,7 +64,8 @@ DocumentPage.propTypes = {
   deleteDocument: React.PropTypes.func.isRequired,
   updateDocument: React.PropTypes.func.isRequired,
   search: React.PropTypes.array.isRequired,
-  searchDocuments: React.PropTypes.func.isRequired
+  searchDocuments: React.PropTypes.func.isRequired,
+  auth: React.PropTypes.object.isRequired
 };
 
 DocumentPage.contextTypes = {
@@ -73,7 +75,8 @@ DocumentPage.contextTypes = {
 function mapStateToProps(state) {
   return {
     documents: state.documents,
-    search: state.search
+    search: state.search,
+    auth: state.auth
   };
 }
 

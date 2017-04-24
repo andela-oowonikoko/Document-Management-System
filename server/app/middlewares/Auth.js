@@ -333,7 +333,7 @@ const Auth = {
   getDocumentByTitle(req, res, next) {
     db.Documents
       .findOne({
-        where: { title: req.query.q },
+        where: { title: { $iLike: `%${req.query.q}%` } },
       })
       .then((document) => {
         if (!document) {

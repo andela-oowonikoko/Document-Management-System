@@ -25,7 +25,6 @@ const swaggerSpec = swaggerJSDoc(options);
 
 router.route('/swagger.json')
   .get((req, res) => {
-    console.log('anything');
     res.setHeader('Content-Type', 'application/json');
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With');

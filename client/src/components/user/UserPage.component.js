@@ -9,6 +9,9 @@ import { fetchUsers, deleteUser, updateUser } from '../../actions/userActions';
 class UserPage extends React.Component {
   constructor() {
     super();
+    this.state = {
+      query: ''
+    };
     this.handleSearch = this.handleSearch.bind(this);
   }
 
@@ -19,16 +22,18 @@ class UserPage extends React.Component {
   handleSearch(e) {
     e.preventDefault();
     const query = e.target.value;
-    if (query === '') {
-      window.location = '/app/users';
-    } else {
-      this.props.searchUsers(query);
-    }
+    this.setState({ query });
+    this.props.searchUsers(query);
+    // if (query === '') {
+    //   window.location = '/app/users';
+    // } else {
+    //   this.props.searchUsers(query);
+    // }
   }
 
   render() {
       const userSearchResult = this.props.search;
-      const renderedUsers = userSearchResult.length > 0
+      const renderedUsers = this.state.query.trim().length > 0
       ? userSearchResult : this.props.getUsers;
 
     return (

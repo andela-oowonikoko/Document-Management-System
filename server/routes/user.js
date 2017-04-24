@@ -53,9 +53,15 @@ userRouter.route('/users')
    *   get:
    *     description: Returns users
    *     tags:
-   *      - Get Users
+   *      - Find Users
    *     produces:
    *      - application/json
+   *     parameters:
+   *      - name: x-access-token
+   *        in: header
+   *        description: an authorization header
+   *        required: true
+   *        type: string
    *     responses:
    *       200:
    *         description: users
@@ -71,7 +77,7 @@ userRouter.route('/users')
    *   post:
    *     description: Creates new user
    *     tags:
-   *      - Create User
+   *      - Create
    *     produces:
    *       - application/json
    *     parameters:
@@ -126,7 +132,7 @@ userRouter.route('/users/login')
    *   post:
    *     description: Logs in a user
    *     tags:
-   *      - Login User
+   *      - Authentication
    *     produces:
    *       - application/json
    *     parameters:
@@ -168,7 +174,7 @@ userRouter.route('/users/logout')
    *   post:
    *     description: Logs out a user
    *     tags:
-   *      - Logout User
+   *      - Authentication
    *     produces:
    *       - application/json
    *     parameters:
@@ -223,15 +229,15 @@ userRouter.route('/users/logout')
 userRouter.route('/users/:id')
   /**
    * @swagger
-   * /users/{param}:
+   * /users/{id}:
    *   get:
    *     description: Returns a particular user
    *     tags:
-   *      - Find User
+   *      - Find Users
    *     produces:
    *      - application/json
    *     parameters:
-   *       - name: param
+   *       - name: id
    *         description: The user's id
    *         in:  path
    *         required: true
@@ -252,15 +258,15 @@ userRouter.route('/users/:id')
 
    /**
    * @swagger
-   * /users/{param}:
+   * /users/{id}:
    *   put:
    *     description: Updates the user signed in
    *     tags:
-   *      - Update User
+   *      - Update
    *     produces:
    *       - application/json
    *     parameters:
-   *        - name: param
+   *        - name: id
    *          description: The user's id
    *          in:  path
    *          required: true
@@ -286,20 +292,20 @@ userRouter.route('/users/:id')
 
    /**
    * @swagger
-   * /users/{param}:
+   * /users/{id}:
    *    delete:
    *      description: Deletes the user with the id supplied as param
    *      tags:
-   *        - Delete user
+   *        - Delete
    *      produces:
    *        - application/json
    *      parameters:
-   *        - name: param
+   *        - name: id
    *          description: The user's id
    *          in:  path
    *          required: true
    *          type: string
-   *        - name: Authorization
+   *        - name: x-access-token
    *          in: header
    *          description: an authorization header
    *          required: true
@@ -310,7 +316,7 @@ userRouter.route('/users/:id')
    *          schema:
    *            type: array
    *            items:
-   *              $ref: '#/definitions/User'
+   *              $ref: '#/definitions/Update'
    */
   .get(Auth.verifyToken, Auth.getSingleUser, User.getUser)
   .put(Auth.verifyToken, Auth.validateUserUpdate, User.update)
@@ -336,15 +342,15 @@ userRouter.route('/users/:id')
 userRouter.route('/users/:id/documents')
   /**
    * @swagger
-   * /users/{param}/documents:
+   * /users/{id}/documents:
    *   get:
    *     description: Returns the documents of a particular user
    *     tags:
-   *      - Find User Documents
+   *      - Find Documents
    *     produces:
    *      - application/json
    *     parameters:
-   *       - name: param
+   *       - name: id
    *         description: The user's id
    *         in:  path
    *         required: true
@@ -387,7 +393,7 @@ userRouter.route('/search/users/')
    *   get:
    *     description: Returns the documents of a particular user
    *     tags:
-   *      - Find User
+   *      - Find Users
    *     produces:
    *      - application/json
    *     parameters:

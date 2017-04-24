@@ -30,9 +30,12 @@ class Navbar extends Component {
             </li>
             <li className={this.props.isHomeActive}>
               {isAuthenticated
-                ? <a href="/app/document">Document</a>
+                ? <a href="/app/document">All Documents</a>
                 : <a href="/app/home">Home</a>
               }
+            </li>
+            <li className={this.props.isUserActive}>
+              <a href="/app/mydocument">My Documents</a>
             </li>
             <li className={this.props.isLoginActive}>
               {isAuthenticated

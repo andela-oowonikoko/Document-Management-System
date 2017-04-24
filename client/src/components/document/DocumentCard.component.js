@@ -55,7 +55,7 @@ class DocumentCard extends React.Component {
                 { (this.props.document.createdAt) ? this.props.document.createdAt.split('T')[0] : ''}
               </span>
             </div>
-            <Modal
+            {this.props.currentUser.userId === this.props.document.ownerId && <Modal
               header="Edit Document"
               trigger={
                 <Button waves="light" className="btn-floating blue darken-4 right">
@@ -105,14 +105,14 @@ class DocumentCard extends React.Component {
                   UPDATE
                 </Button>
               </form>
-            </Modal>
-            <Button
+            </Modal>}
+            {this.props.currentUser.userId === this.props.document.ownerId && <Button
               waves="light"
               onClick={() => this.props.deleteDocument(this.props.document.id)}
               className="btn-floating red darken-2 right"
             >
               <i className="material-icons">delete</i>
-            </Button>
+            </Button>}
           </div>
         </div>
       </div>
@@ -123,7 +123,8 @@ class DocumentCard extends React.Component {
 DocumentCard.propTypes = {
   document: React.PropTypes.object.isRequired,
   deleteDocument: React.PropTypes.func.isRequired,
-  updateDocument: React.PropTypes.func.isRequired
+  updateDocument: React.PropTypes.func.isRequired,
+  currentUser: React.PropTypes.object.isRequired
 };
 
 DocumentCard.contextTypes = {
