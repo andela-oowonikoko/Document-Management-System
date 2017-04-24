@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './Nav.component';
+import HomePage from '../user/HomePage.component';
 
 class Index extends Component {
   /**
@@ -9,7 +10,10 @@ class Index extends Component {
    */
   render() {
     return (
-      <Navbar isHomeActive="active" isLoginActive="" isSignupActive="" />
+      <div>
+        <Navbar isUserActive="" isHomeActive="active" isLoginActive="" isSignupActive="" />
+        <HomePage />
+      </div>
     );
   }
 }
