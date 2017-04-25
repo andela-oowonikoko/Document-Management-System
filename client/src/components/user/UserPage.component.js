@@ -38,7 +38,7 @@ class UserPage extends React.Component {
 
     return (
       <div>
-        <Navbar isUserActive="active" isHomeActive="" isLoginActive="" isSignupActive="" />
+        <Navbar isUserActive="active" isHomeActive="" isDocumentActive="" isLoginActive="" isSignupActive="" />
         <div className="row">
           <div className="col s7 push-s4">
             <Search onChange={this.handleSearch} />

@@ -9,7 +9,7 @@ class CreateDocumentPage extends Component {
     const saveDocument = this.props.saveDocument;
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="active" isLoginActive="" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="active" isDocumentActive="" isLoginActive="" isSignupActive="" />
         <CreateDocument saveDocument={saveDocument} />
       </div>
     );

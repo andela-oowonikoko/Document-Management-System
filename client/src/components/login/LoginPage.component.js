@@ -9,7 +9,7 @@ class LoginPage extends Component {
     const userLoginRequest = this.props.userLoginRequest;
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="" isLoginActive="active" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="" isDocumentActive="" isLoginActive="active" isSignupActive="" />
         <LoginForm userLoginRequest={userLoginRequest} />
       </div>
     );

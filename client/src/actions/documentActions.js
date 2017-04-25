@@ -58,19 +58,23 @@ export function saveDocument(data) {
   };
 }
 
-export function fetchDocuments() {
+export function fetchDocuments(id) {
   return (dispatch) => {
     return axios.get('/documents')
-      .then(res => res.data)
-      .then(data => dispatch( setDocuments(data.documents.rows)));
+    .then(res => res.data)
+    .then((data) => {
+      dispatch(setDocuments(data.documents.rows));
+    });
   };
 }
 
 export function fetchDocument(id) {
   return (dispatch) => {
-    return axios.get(`/documents/${id}`)
+    return axios.get(`/users/${id}/documents`)
       .then(res => res.data)
-      .then(data => dispatch(documentFetched(data.document)));
+      .then((data) => {
+        dispatch(setDocuments(data.userDocuments.documents.rows));
+      });
   };
 }
 

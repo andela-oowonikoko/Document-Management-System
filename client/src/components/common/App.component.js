@@ -5,6 +5,7 @@ import Index from './Index.component';
 import Login from '../login/LoginPage.component';
 import Signup from '../signup/SignupPage.component';
 import Document from '../document/DocumentPage.component';
+import MyDocument from '../document/MyDocumentPage.component';
 import CreateDocument from '../document/CreateDocumentPage.component';
 import Profile from '../profile/ProfilePage.component';
 import Users from '../user/UserPage.component';
@@ -23,6 +24,7 @@ class App extends Component {
           <Route path="/app/login" component={Login} />
           <Route path="/app/signup" component={Signup} />
           <Route path="/app/document" component={Document} />
+          <Route path="/app/mydocument" component={MyDocument} />
           <Route path="/app/createdocument" component={CreateDocument} />
           <Route path="/app/profile" component={Profile} />
           <Route path="/app/users" component={Users} />

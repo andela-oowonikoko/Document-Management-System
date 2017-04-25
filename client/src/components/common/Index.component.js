@@ -11,7 +11,7 @@ class Index extends Component {
   render() {
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="active" isLoginActive="" isSignupActive="" />
+        <Navbar isUserActive="" isHomeActive="active" isDocumentActive="" isLoginActive="" isSignupActive="" />
         <HomePage />
       </div>
     );
