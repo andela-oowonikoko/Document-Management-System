@@ -22,7 +22,7 @@ class CreateDocument extends Component {
   onSubmit(e) {
     e.preventDefault();
     this.props.saveDocument(this.state).then((res) => {
-      this.context.router.history.push('/app/document').then(() => {
+      this.context.router.history.push('/app/mydocument').then(() => {
         Materialize.toast(res.data.message, 4000, 'rounded');
       });
     }).catch((err) => {
