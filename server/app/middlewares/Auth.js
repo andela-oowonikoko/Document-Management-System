@@ -333,7 +333,7 @@ const Auth = {
   getDocumentByTitle(req, res, next) {
     db.Documents
       .findOne({
-        where: { title: req.query.q },
+        where: { title: { $iLike: `%${req.query.q}%` } },
       })
       .then((document) => {
         if (!document) {
@@ -455,6 +455,12 @@ const Auth = {
           return res.status(404)
             .send({
               message: 'This user does not exist'
+            });
+        }
+        if (Helper.isAdmin(user.rolesId) && user.id === 1) {
+          return res.status(403)
+            .send({
+              message: 'You can not delete the default admin user'
             });
         }
         req.userInstance = user;
