@@ -4,7 +4,7 @@ import { Row, Input, Button } from 'react-materialize';
 const DocumentForm = ({ document, onSave, onChange, saving, errors }) => {
   return (    
     <form>
-      <h5>Create/Update a Document </h5>
+      <h5>Create/Update a Document</h5>
       <Row>
         <Input 
           placeholder="Title"
