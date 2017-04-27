@@ -91,7 +91,6 @@ class DocumentCard extends React.Component {
                   >
                     <option value="public">Public</option>
                     <option value="private">Private</option>
-                    <option value="role">Role</option>
                   </Input>
                 </Row>
                 <Row>

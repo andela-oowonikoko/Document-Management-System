@@ -46,7 +46,7 @@ class CreateDocument extends Component {
         <form onSubmit={this.onSubmit}>
           <h5>Create a Document </h5>
           <Row>
-            <Input 
+            <Input
               placeholder="Title"
               s={12}
               validate
@@ -55,7 +55,7 @@ class CreateDocument extends Component {
               value={this.state.title}
               required
             />
-            <Input 
+            <Input
               placeholder="Content"
               s={12}
               validate
@@ -75,7 +75,6 @@ class CreateDocument extends Component {
             >
               <option value="public">Public</option>
               <option value="private">Private</option>
-              <option value="role">Role</option>
             </Input>
 
             <Input

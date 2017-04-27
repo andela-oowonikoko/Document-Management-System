@@ -15,7 +15,7 @@
     "PORT": {
       "required": true
     },
-    "SECRET": {
+    "SECRETKEY": {
       "required": true
     }
   },
