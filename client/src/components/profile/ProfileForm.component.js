@@ -104,8 +104,9 @@ class ProfileForm extends Component {
             <Input
               s={6}
               name="password"
+              type="password"
               value={this.state.password}
-              onChange={(event) => this.onChange(event)}
+              onChange={event => this.onChange(event)}
               required
             />
           </Row>
