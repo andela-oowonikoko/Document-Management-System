@@ -50,3 +50,7 @@ a {
 .btn-floating:hover {
   opacity: 1;
 }
+
+.brand-logo {
+  margin-left: 40px;
+}
