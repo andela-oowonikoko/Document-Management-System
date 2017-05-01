@@ -168,6 +168,21 @@ const Helper = {
     };
   },
   /**
+   * Query for search terms
+   * @param {Array} terms array of search terms
+   * @returns {Object} return user's data
+   */
+  likeSearch(terms) {
+    const like = {
+      $or:
+      [
+        { title: { $iLike: { $any: terms } } },
+        { content: { $iLike: { $any: terms } } }
+      ]
+    };
+    return like;
+  },
+  /**
    * Get errors
    * @param {Array} error client side errors
    * @returns {Array} return user's attributes

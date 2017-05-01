@@ -86,7 +86,7 @@ describe('Document Model', () => {
   });
 
   describe('ACCESS Violation', () => {
-    it('should return error when access is not public, private or role',
+    it('should return error when access is not public or private',
     (done) => {
       const accessError = Object.assign({}, helper.publicDocument);
       accessError.access = 'andela';

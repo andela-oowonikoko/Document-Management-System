@@ -250,5 +250,144 @@ describe('User API', () => {
           });
       });
     });
+
+    describe('Delete user DELETE /users/:id', () => {
+      let newUser, newUSerToken;
+      before((done) => {
+        superRequest.post('/users')
+          .send(helper.thirdUser)
+          .end((err, res) => {
+            newUser = res.body.user;
+            newUSerToken = res.body.token;
+            done();
+          });
+      });
+
+      it('should return not found for invalid user id', (done) => {
+        superRequest.delete('/users/999')
+          .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res.body.message).to.equal('This user does not exist');
+            expect(res.status).to.equal(404);
+            done();
+          });
+      });
+
+      it('should fail when request is from a regular user', (done) => {
+        superRequest.delete(`/users/${regularUser.id}`)
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(403);
+            expect(res.body.message).to
+              .equal('You are not permitted to perform this action');
+            done();
+          });
+      });
+
+      it('allow admin to delete a user', (done) => {
+        superRequest.delete(`/users/${newUser.id}`)
+          .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.message).to
+              .equal('This account has been successfully deleted');
+            done();
+          });
+      });
+
+      it('should not allow a deleted user to access any restricted route',
+      (done) => {
+        superRequest.get('/users/')
+          .set({ 'x-access-token': newUSerToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body.message).to
+              .equal('Account not found, Sign Up or sign in to get access');
+            done();
+          });
+      });
+    });
+
+    describe('Update user attributes PUT /users/:id', () => {
+      it('should update user\'s profile when valid user token is supplied',
+      (done) => {
+        const updateData = {
+          firstName: 'sandra',
+          lastName: 'owolabi',
+          password: 'newpassword'
+        };
+        superRequest.put(`/users/${regularUser.id}`)
+          .send(updateData)
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res.body.message).to.equal('Your profile has been updated');
+            expect(res.body.updatedUser.firstName).to.equal('sandra');
+            expect(res.body.updatedUser.lastName).to.equal('owolabi');
+            done();
+          });
+      });
+
+      it('should return error when passing a null field', (done) => {
+        superRequest.put(`/users/${regularUser.id}`)
+          .send({ username: '' })
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(400);
+            expect(res.body.errorArray[0].message).to
+              .equal('Input a valid username');
+            done();
+          });
+      });
+
+      it('should return error when a user wants to update id',
+      (done) => {
+        superRequest.put(`/users/${regularUser.id}`)
+          .send({ id: 10 })
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(403);
+            expect(res.body.message)
+              .to.equal('You are not permitted to update your id');
+            done();
+          });
+      });
+
+      it(`should return permission denied when regular user want to
+        update another user's profile`, (done) => {
+        const data = { username: 'seunkoko', lastname: 'owonikoko' };
+        superRequest.put(`/users/${newAdminUser.id}`)
+          .send(data)
+          .set({ 'x-access-token': regularToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.body.message).to
+              .equal('You are not permitted to update this profile');
+            done();
+          });
+      });
+    });
+
+    describe('Logout', () => {
+      it('should logout successfully', (done) => {
+        superRequest.post('/users/logout')
+        .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            expect(res.body.message).to
+              .equal('You have successfully logged out');
+            done();
+          });
+      });
+      it('should not allow user to get user after logout', (done) => {
+        superRequest.get('/users')
+        .set({ 'x-access-token': adminToken })
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.body.message).to
+              .equal('Please sign in to access your account');
+            done();
+          });
+      });
+    });
   });
 });

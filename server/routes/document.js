@@ -263,7 +263,7 @@ documentRouter.route('/search/documents')
    *             $ref: '#/definitions/SearchDocument'
    */
   .get(Auth.verifyToken,
-    Auth.getDocumentByTitle,
-    Documents.getDocumentByTitle);
+    Auth.validateSearch,
+    Documents.search);
 
 export default documentRouter;

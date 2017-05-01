@@ -11,7 +11,7 @@ describe('User Model', () => {
     'email',
     'password'
   ];
-  // const uniqueFields = ['username', 'email'];
+
   const emptyFields = ['firstName', 'lastName'];
   const defaultRoleId = 2;
   let regularUser;
@@ -74,26 +74,6 @@ describe('User Model', () => {
     });
   });
 
-  // des`cribe('Unique', () => {
-  //   uniqueFields.forEach((field) => {
-  //     const uniqueTest = Object.assign({}, helper.firstUser);
-  //     uniqueTest[field] = helper.regularUser[field];
-  //     it(`should fail for existing ${field}`, (done) => {
-  //       db.User.create(uniqueTest)
-  //         .then()
-  //         .catch((error) => {
-  //           expect(error.errors[0].message)
-  //             .to.equal(`${field} already exist`);
-  //           expect(error.errors[0].type)
-  //             .to.equal('unique violation');
-  //           expect(error.errors[0].path)
-  //             .to.equal(field);
-  //           done();
-  //         });
-  //     });
-  //   });
-  // })
-
   describe('Not null violations', () => {
     requiredFields.forEach((field) => {
       it(`should fail when ${field} is null`, (done) => {
@@ -133,13 +113,9 @@ describe('User Model', () => {
   });
 
   describe('Logging in', () => {
-    let decryptPassword;
     it('should login a user', () => {
       db.User.findOne({ where: { email: regularUser.email } })
         .then((user) => {
-          decryptPassword = user.validPassword(helper.regularUser.password);
-          expect(decryptPassword)
-            .to.be.equal(true);
           expect(user.password)
             .to.not.equal(helper.regularUser.password);
         });
