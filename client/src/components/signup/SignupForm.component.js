@@ -38,55 +38,60 @@ class SignupForm extends Component {
         <form onSubmit={this.onSubmit} className="loginForm">
           <div className="form-control">
             <h1 className="loginHeader">Sign Up</h1>
+            <label className="active" htmlFor="username">Username:</label>
             <input
-              placeholder="Username"
               value={this.state.username}
               onChange={this.onChange}
               type="text"
+              id="username"
               name="username"
               className="form-control"
               required
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="firstName">First Name:</label>
             <input
-              placeholder="Firstname"
               value={this.state.firstName}
               onChange={this.onChange}
               type="text"
+              id="firstName"
               name="firstName"
               className="form-control"
               required
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="lastName">Last Name:</label>
             <input
-              placeholder="Lastname"
               value={this.state.lastName}
               onChange={this.onChange}
               type="text"
+              id="lastName"
               name="lastName"
               className="form-control"
               required
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="email">Email:</label>
             <input
-              placeholder="Email"
               value={this.state.email}
               onChange={this.onChange}
               type="email"
+              id="email"
               name="email"
               className="form-control"
               required
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="password">Password:</label>
             <input
-              placeholder="Password"
               value={this.state.password}
               onChange={this.onChange}
               type="password"
+              id="password"
               name="password"
               className="form-control"
               required

@@ -73,9 +73,9 @@ const Auth = {
           message: 'Permission denied, You cannot sign up as an admin user'
         });
     }
-    let username = /\w+/g.test(req.body.username);
-    let firstName = /\w+/g.test(req.body.firstName);
-    let lastName = /\w+/g.test(req.body.lastName);
+    let username = /^[a-zA-Z0-9]+$/.test(req.body.username);
+    let firstName = /^[a-zA-Z0-9]+$/.test(req.body.firstName);
+    let lastName = /^[a-zA-Z0-9]+$/.test(req.body.lastName);
     let email = /\S+@\S+\.\S+/.test(req.body.email);
     let password = /\w+/g.test(req.body.password);
 

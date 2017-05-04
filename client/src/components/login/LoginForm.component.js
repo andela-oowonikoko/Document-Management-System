@@ -36,10 +36,12 @@ class LoginForm extends Component {
         <form onSubmit={this.onSubmit} className="loginForm">
           <div className="form-control">
             <h1 className="loginHeader">Login</h1>
+            <label className="active" htmlFor="email">Email:</label>
             <input
               className="form-control"
               value={this.state.username}
               onChange={this.onChange}
+              id="email"
               name="email"
               placeholder="Email"
               type="email"
@@ -47,11 +49,13 @@ class LoginForm extends Component {
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="password">Password:</label>
             <input
               placeholder="Password"
               value={this.state.password}
               onChange={this.onChange}
               type="password"
+              id="password"
               name="password"
               className="form-control"
               required
