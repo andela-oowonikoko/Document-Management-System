@@ -248,7 +248,7 @@ const Auth = {
         };
       }
     }
-    if (`${req.baseUrl}${req.route.path}` === '/documents/') {
+    if (`${req.baseUrl}${req.route.path}` === '/documents') {
       if (Helper.isAdmin(req.tokenDecode.rolesId)) {
         query.where = {};
       } else {

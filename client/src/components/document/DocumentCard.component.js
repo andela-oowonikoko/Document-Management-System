@@ -50,9 +50,13 @@ class DocumentCard extends React.Component {
           </div>
           <div className="card-action">
             <div className="documentDate">
-              <span className="">
+              <span className="documentSpan">
                 Published:
                 { (this.props.document.createdAt) ? this.props.document.createdAt.split('T')[0] : ''}
+              </span>
+              <span className="documentSpan">
+                Access:
+                { this.props.document.access }
               </span>
             </div>
             {this.props.currentUser.userId === this.props.document.ownerId && <Modal
