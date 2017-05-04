@@ -96,6 +96,7 @@ userRouter.route('/users')
    */
   .get(Auth.verifyToken,
     Auth.validateSearch,
+    Auth.hasAdminPermission,
     User.getAll)
   .post(Auth.validateUserInput, User.create);
 

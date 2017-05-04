@@ -66,7 +66,7 @@ const Helper = {
       lastName: data.lastname,
       email: data.email,
       rolesId: data.roleId,
-      createAt: data.createdAt,
+      createdAt: data.createdAt,
       updatedAt: data.updatedAt
     };
   },
@@ -124,12 +124,6 @@ const Helper = {
       [
         { access: 'public' },
         { ownerId: req.tokenDecode.userId },
-        {
-          $and: [
-            { access: 'role' },
-            { ownerRoleId: req.tokenDecode.roleId }
-          ]
-        }
       ]
     };
     return access;

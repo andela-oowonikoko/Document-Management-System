@@ -143,18 +143,6 @@ describe('DOCUMENT API', () => {
         });
     });
 
-    it('should not allow admin to update document', (done) => {
-      updateDoc = { title: 'TIA' };
-      superRequest.put(`/documents/${createdDoc.id}`)
-        .send(updateDoc)
-        .set({ 'x-access-token': adminToken })
-        .end((err, res) => {
-          expect(res.status).to.equal(401);
-          expect(res.body.message).to.equal('You are not permitted to modify this document');
-          done();
-        });
-    });
-
     it('should not update document when user is not the owner', (done) => {
       updateDoc = { content: 'new life, new culture, new community' };
       superRequest.put(`/documents/${createdDoc.id}`)

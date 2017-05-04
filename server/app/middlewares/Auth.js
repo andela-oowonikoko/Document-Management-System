@@ -40,7 +40,7 @@ const Auth = {
                 });
             }
             req.tokenDecode = decoded;
-            req.tokenDecode.roleId = user.roleId;
+            req.tokenDecode.rolesId = user.rolesId;
             next();
           });
       });
@@ -137,7 +137,7 @@ const Auth = {
             lastName = req.body.lastName;
             email = req.body.email;
             password = req.body.password;
-            const rolesId = req.body.roleId || 2;
+            const rolesId = req.body.rolesId || 2;
             req.userInput =
             { username, firstName, lastName, rolesId, email, password };
             next();
@@ -229,7 +229,7 @@ const Auth = {
       };
     }
     if (`${req.baseUrl}${req.route.path}` === '/users/') {
-      query.where = Helper.isAdmin(req.tokenDecode.roleId)
+      query.where = Helper.isAdmin(req.tokenDecode.rolesId)
         ? {}
         : { id: req.tokenDecode.userId };
     }
@@ -240,7 +240,7 @@ const Auth = {
             message: 'Please enter a search query'
           });
       }
-      if (Helper.isAdmin(req.tokenDecode.roleId)) {
+      if (Helper.isAdmin(req.tokenDecode.rolesId)) {
         query.where = Helper.likeSearch(terms);
       } else {
         query.where = {
@@ -248,7 +248,7 @@ const Auth = {
         };
       }
     }
-    if (`${req.baseUrl}${req.route.path}` === '/documents/') {
+    if (`${req.baseUrl}${req.route.path}` === '/documents') {
       if (Helper.isAdmin(req.tokenDecode.roleId)) {
         query.where = {};
       } else {
@@ -260,7 +260,7 @@ const Auth = {
       const userSearch = req.query.query
         ? [Helper.docAccess(req), Helper.likeSearch(terms)]
         : Helper.docAccess(req);
-      if (Helper.isAdmin(req.tokenDecode.roleId)) {
+      if (Helper.isAdmin(req.tokenDecode.rolesId)) {
         query.where = adminSearch;
       } else {
         query.where = userSearch;
@@ -558,7 +558,7 @@ const Auth = {
       content: req.body.content,
       ownerId: req.tokenDecode.userId,
       access: req.body.access,
-      ownerRoleId: req.tokenDecode.roleId
+      ownerRoleId: req.tokenDecode.rolesId
     };
     next();
   },
@@ -579,7 +579,7 @@ const Auth = {
             });
         }
         if (!Helper.isOwnerDoc(doc, req)
-          && !Helper.isAdmin(req.tokenDecode.roleId)) {
+          && !Helper.isAdmin(req.tokenDecode.rolesId)) {
           return res.status(401)
             .send({
               message: 'You are not permitted to modify this document'
