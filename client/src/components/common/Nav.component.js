@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/loginActions';
 
+/**
+ * @class Navbar
+ * @extends {Component}
+ */
 class Navbar extends Component {
+
   /**
-   * renders the Nav component
+   * @param {any} event
    * @returns {void}
    * @memberOf Navbar
    */
@@ -13,7 +18,11 @@ class Navbar extends Component {
     this.props.logout();
     this.context.router.history.push('/app/login');
   }
-
+  /**
+   * renders the Nav component
+   * @returns {void}
+   * @memberOf Navbar
+   */
   render() {
     const { isAuthenticated } = this.props.auth;
 
@@ -73,6 +82,11 @@ Navbar.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
+/**
+ * mapStateToProps
+ * @param {any} state
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     auth: state.auth,

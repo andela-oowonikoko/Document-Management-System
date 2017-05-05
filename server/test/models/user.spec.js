@@ -74,26 +74,6 @@ describe('User Model', () => {
     });
   });
 
-  // des`cribe('Unique', () => {
-  //   uniqueFields.forEach((field) => {
-  //     const uniqueTest = Object.assign({}, helper.firstUser);
-  //     uniqueTest[field] = helper.regularUser[field];
-  //     it(`should fail for existing ${field}`, (done) => {
-  //       db.User.create(uniqueTest)
-  //         .then()
-  //         .catch((error) => {
-  //           expect(error.errors[0].message)
-  //             .to.equal(`${field} already exist`);
-  //           expect(error.errors[0].type)
-  //             .to.equal('unique violation');
-  //           expect(error.errors[0].path)
-  //             .to.equal(field);
-  //           done();
-  //         });
-  //     });
-  //   });
-  // })
-
   describe('Not null violations', () => {
     requiredFields.forEach((field) => {
       it(`should fail when ${field} is null`, (done) => {

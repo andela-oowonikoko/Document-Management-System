@@ -6,7 +6,15 @@ import { searchUsers } from '../../actions/searchActions';
 import Search from '../common/Search.component';
 import { fetchUsers, deleteUser, updateUser } from '../../actions/userActions';
 
+/**
+ * @class UserPage
+ * @extends {React.Component}
+ */
 class UserPage extends React.Component {
+  /**
+   * Creates an instance of UserPage.
+   * @memberOf UserPage
+   */
   constructor() {
     super();
     this.state = {
@@ -15,30 +23,44 @@ class UserPage extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  /**
+   * @returns {void}
+   * @memberOf UserPage
+   */
   componentDidMount() {
     this.props.fetchUsers();
   }
 
-  handleSearch(e) {
-    e.preventDefault();
-    const query = e.target.value;
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf UserPage
+   */
+  handleSearch(event) {
+    event.preventDefault();
+    const query = event.target.value;
     this.setState({ query });
     this.props.searchUsers(query);
-    // if (query === '') {
-    //   window.location = '/app/users';
-    // } else {
-    //   this.props.searchUsers(query);
-    // }
   }
 
+  /**
+   * @returns {object} object
+   * @memberOf UserPage
+   */
   render() {
-      const userSearchResult = this.props.search;
-      const renderedUsers = this.state.query.trim().length > 0
+    const userSearchResult = this.props.search;
+    const renderedUsers = this.state.query.trim().length > 0
       ? userSearchResult : this.props.getUsers;
 
     return (
       <div>
-        <Navbar isUserActive="active" isHomeActive="" isDocumentActive="" isLoginActive="" isSignupActive="" />
+        <Navbar
+          isUserActive="active"
+          isHomeActive=""
+          isDocumentActive=""
+          isLoginActive=""
+          isSignupActive=""
+        />
         <div className="row">
           <div className="col s7 push-s4">
             <Search onChange={this.handleSearch} />
@@ -67,6 +89,10 @@ UserPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
+/**
+ * @param {any} state
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     getUsers: state.getUsers,
@@ -74,4 +100,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchUsers, deleteUser, updateUser, searchUsers })(UserPage);
+export default connect(mapStateToProps,
+  { fetchUsers, deleteUser, updateUser, searchUsers })(UserPage);

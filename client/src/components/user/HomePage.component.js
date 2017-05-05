@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import Navbar from '../common/Nav.component';
-import DocumentPage from '../document/DocumentPage.component';
 
+/**
+ * @class HomePage
+ * @extends {React.Component}
+ */
 class HomePage extends React.Component {
+  /**
+   * @returns {object} object
+   * @memberOf HomePage
+   */
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
@@ -19,6 +24,10 @@ HomePage.propTypes = {
   auth: React.PropTypes.object.isRequired,
 };
 
+/**
+ * @param {any} state
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     auth: state.auth,

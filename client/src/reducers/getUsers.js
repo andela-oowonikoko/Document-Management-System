@@ -1,9 +1,15 @@
 import { SET_USERS, USER_UPDATED, USER_DELETED } from '../actions/types';
 
+/**
+ * @export
+ * @param {any} [state=[]]
+ * @param {any} [action={}]
+ * @returns {object} object
+ */
 export default function getUsers(state = [], action = {}) {
-  switch(action.type) {
+  switch (action.type) {
     case USER_UPDATED:
-      return state.map(item => {
+      return state.map((item) => {
         if (item.id === action.document.id) return action.user;
         return item;
       });

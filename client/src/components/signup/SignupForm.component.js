@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
+/**
+ * @class SignupForm
+ * @extends {Component}
+ */
 class SignupForm extends Component {
+  /**
+   * Creates an instance of SignupForm.
+   * @param {any} props
+   * @memberOf SignupForm
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -14,12 +23,22 @@ class SignupForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf SignupForm
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf SignupForm
+   */
+  onSubmit(event) {
+    event.preventDefault();
     this.props.userSignupRequest(this.state).then((res) => {
       this.props.addFlashMessage({
         type: 'success',
@@ -32,6 +51,10 @@ class SignupForm extends Component {
     });
   }
 
+  /**
+   * @returns {object} object
+   * @memberOf SignupForm
+   */
   render() {
     return (
       <div>

@@ -1,23 +1,31 @@
 import axios from 'axios';
-import swal from 'sweetalert';
-import { SET_DOCUMENTS, ADD_DOCUMENT, DOCUMENT_FETCHED, DOCUMENT_UPDATED, DOCUMENT_DELETED } from './types';
+import {
+  SET_DOCUMENTS,
+  ADD_DOCUMENT,
+  DOCUMENT_FETCHED,
+  DOCUMENT_UPDATED,
+  DOCUMENT_DELETED }
+from './types';
 
-function handleResponse(response) {
-  if (response.ok) {
-    return response.json();
-  } else {
-    let error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
-}
-
+/**
+ * setDocuments
+ * @export
+ * @param {any} documents
+ * @returns {object} object
+ */
 export function setDocuments(documents) {
   return {
     type: SET_DOCUMENTS,
     documents,
   };
 }
+
+/**
+ * addDocument
+ * @export
+ * @param {any} document
+ * @returns {object} object
+ */
 export function addDocument(document) {
   return {
     type: ADD_DOCUMENT,
@@ -25,6 +33,12 @@ export function addDocument(document) {
   };
 }
 
+/**
+ * documentFetched
+ * @export
+ * @param {any} document
+ * @returns {object} object
+ */
 export function documentFetched(document) {
   return {
     type: DOCUMENT_FETCHED,
@@ -32,6 +46,12 @@ export function documentFetched(document) {
   };
 }
 
+/**
+ * documentUpdated
+ * @export
+ * @param {any} document
+ * @returns {object} object
+ */
 export function documentUpdated(document) {
   return {
     type: DOCUMENT_UPDATED,
@@ -39,6 +59,12 @@ export function documentUpdated(document) {
   };
 }
 
+/**
+ * documentDeleted
+ * @export
+ * @param {any} documentId
+ * @returns {object} object
+ */
 export function documentDeleted(documentId) {
   return {
     type: DOCUMENT_DELETED,
@@ -46,19 +72,30 @@ export function documentDeleted(documentId) {
   };
 }
 
+/**
+ * saveDocument
+ * @export
+ * @param {any} data
+ * @returns {object} object
+ */
 export function saveDocument(data) {
   return (dispatch) => {
     return axios.post('/documents', data)
        .then(response => {
-        dispatch(addDocument(response.data));
-      })
+         dispatch(addDocument(response.data));
+       })
       .catch(error => {
-        throw(error);
+        throw (error);
       });
   };
 }
 
-export function fetchDocuments(id) {
+/**
+ * fetchDocuments
+ * @export
+ * @returns {object} object
+ */
+export function fetchDocuments() {
   return (dispatch) => {
     return axios.get('/documents')
     .then(res => res.data)
@@ -68,6 +105,12 @@ export function fetchDocuments(id) {
   };
 }
 
+/**
+ * fetchDocument
+ * @export
+ * @param {any} id
+ * @returns {object} object
+ */
 export function fetchDocument(id) {
   return (dispatch) => {
     return axios.get(`/users/${id}/documents`)
@@ -78,6 +121,12 @@ export function fetchDocument(id) {
   };
 }
 
+/**
+ * updateDocument
+ * @export
+ * @param {any} data
+ * @returns {object} object
+ */
 export function updateDocument(data) {
   return (dispatch) => {
     return axios.put(`/documents/${data.id}`, data)
@@ -89,6 +138,12 @@ export function updateDocument(data) {
   };
 }
 
+/**
+ * deleteDocument
+ * @export
+ * @param {any} id
+ * @returns {object} object
+ */
 export function deleteDocument(id) {
   return (dispatch) => {
     return axios.delete(`/documents/${id}`)

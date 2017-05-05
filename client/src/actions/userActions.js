@@ -1,16 +1,12 @@
 import axios from 'axios';
 import { SET_USERS, USER_UPDATED, USER_DELETED } from './types';
 
-function handleResponse(response) {
-  if (response.ok) {
-    return response.json();
-  } else {
-    let error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
-}
-
+/**
+ * setUsers
+ * @export
+ * @param {any} users
+ * @returns {object} object
+ */
 export function setUsers(users) {
   return {
     type: SET_USERS,
@@ -18,6 +14,12 @@ export function setUsers(users) {
   };
 }
 
+/**
+ * userUpdated
+ * @export
+ * @param {any} user
+ * @returns {object} object
+ */
 export function userUpdated(user) {
   return {
     type: USER_UPDATED,
@@ -25,6 +27,12 @@ export function userUpdated(user) {
   };
 }
 
+/**
+ * userDeleted
+ * @export
+ * @param {any} userId
+ * @returns {object} object
+ */
 export function userDeleted(userId) {
   return {
     type: USER_DELETED,
@@ -32,6 +40,11 @@ export function userDeleted(userId) {
   };
 }
 
+/**
+ * fetchUsers
+ * @export
+ * @returns {object} object
+ */
 export function fetchUsers() {
   return (dispatch) => {
     return axios.get('/users')
@@ -42,6 +55,12 @@ export function fetchUsers() {
   };
 }
 
+/**
+ * updateUser
+ * @export
+ * @param {any} data
+ * @returns {object} object
+ */
 export function updateUser(data) {
   return (dispatch) => {
     return axios.put(`/users/${data.id}`, data)
@@ -53,6 +72,12 @@ export function updateUser(data) {
   };
 }
 
+/**
+ * deleteUser
+ * @export
+ * @param {any} id
+ * @returns {object} object
+ */
 export function deleteUser(id) {
   return (dispatch) => {
     return axios.delete(`/users/${id}`)

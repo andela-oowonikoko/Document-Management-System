@@ -1,6 +1,11 @@
 import React from 'react';
 import UserCard from './UserCard.component';
 
+/**
+ * @export
+ * @param {any} getUsers, deleteUser, updateUser
+ * @returns {object} object
+ */
 export default function UserList({ getUsers, deleteUser, updateUser }) {
   const emptyMessage = (
     <p>There are no users.</p>
@@ -8,7 +13,13 @@ export default function UserList({ getUsers, deleteUser, updateUser }) {
 
   const userList = (
     <div className="row">
-      {getUsers.map(getUser => <UserCard getUser={getUser} key={getUser.id} deleteUser={deleteUser} updateUser={updateUser} />)}
+      {getUsers.map(getUser =>
+        <UserCard
+          getUser={getUser}
+          key={getUser.id}
+          deleteUser={deleteUser}
+          updateUser={updateUser}
+        />)}
     </div>
   );
 
