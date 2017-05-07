@@ -3,6 +3,7 @@ import Documents from '../app/controllers/document';
 import Authentication from '../app/middlewares/Authentication';
 import Validation from '../app/middlewares/Validation';
 import hasPermission from '../app/middlewares/hasPermission';
+import getData from '../app/middlewares/getData';
 
 const documentRouter = express.Router();
 
@@ -211,7 +212,7 @@ documentRouter.route('/documents/:id')
    *              $ref: '#/definitions/DocUpdate'
    */
   .get(Authentication.verifyToken,
-    Authentication.getSingleDocument,
+    getData.getSingleDocument,
     Documents.getDocument)
   .put(Authentication.verifyToken,
     hasPermission.hasDocumentPermission,
@@ -265,7 +266,7 @@ documentRouter.route('/search/documents')
    *             $ref: '#/definitions/SearchDocument'
    */
   .get(Authentication.verifyToken,
-    Authentication.getDocumentByTitle,
+    getData.getDocumentByTitle,
     Documents.getDocumentByTitle);
 
 export default documentRouter;

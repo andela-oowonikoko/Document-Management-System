@@ -4,6 +4,7 @@ import User from '../app/controllers/user';
 import Authentication from '../app/middlewares/Authentication';
 import Validation from '../app/middlewares/Validation';
 import hasPermission from '../app/middlewares/hasPermission';
+import getData from '../app/middlewares/getData';
 
 const userRouter = express.Router();
 
@@ -321,7 +322,7 @@ userRouter.route('/users/:id')
    *            items:
    *              $ref: '#/definitions/Update'
    */
-  .get(Authentication.verifyToken, Authentication.getSingleUser, User.getUser)
+  .get(Authentication.verifyToken, getData.getSingleUser, User.getUser)
   .put(Authentication.verifyToken,
     Validation.validateUserUpdate,
     User.update)
@@ -423,7 +424,7 @@ userRouter.route('/search/users/')
    *             $ref: '#/definitions/SearchUser'
    */
   .get(Authentication.verifyToken,
-    Authentication.getUserName,
+    getData.getUserName,
     User.getUserName);
 
 export default userRouter;
