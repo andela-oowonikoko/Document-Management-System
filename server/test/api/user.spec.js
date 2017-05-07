@@ -189,20 +189,6 @@ describe('User API', () => {
           });
       });
 
-      it(`should return users own profile, 
-      when the requester is a regular user`, (done) => {
-        superRequest.get('/users')
-          .set({ 'x-access-token': regularToken })
-          .end((err, res) => {
-            expect(res.status).to.equal(200);
-            expect(res.body.message).to
-              .equal('You have successfully retrived all users');
-            expect(res.body.users.rows[0].username).to
-              .equal(helper.regularUser.username);
-            done();
-          });
-      });
-
       it(`should return all users profile, 
       when the requester is an admin user`, (done) => {
         superRequest.get('/users')
