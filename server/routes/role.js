@@ -2,6 +2,7 @@ import express from 'express';
 import Roles from '../app/controllers/role';
 import Authentication from '../app/middlewares/Authentication';
 import hasPermission from '../app/middlewares/hasPermission';
+import Validation from '../app/middlewares/Validation';
 
 const rolesRouter = express.Router();
 
@@ -202,7 +203,7 @@ rolesRouter.route('/roles/:id')
     Roles.getRoleById)
   .put(Authentication.verifyToken,
     hasPermission.hasAdminPermission,
-    Authentication.checkTitle,
+    Validation.validateRoleTitle,
     Authentication.modifyRolePermission,
     Roles.update)
   .delete(Authentication.verifyToken,

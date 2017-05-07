@@ -60,25 +60,6 @@ const Authentication = {
     return userToken;
   },
   /**
-   * Checks if title is present in the request body
-   * @param {Object} req req object
-   * @param {Object} res response object
-   * @param {Object} next Move to next controller handler
-   * @returns {void|Object} response object or void
-   */
-  checkTitle(req, res, next) {
-    db.Roles.findById(req.params.id)
-      .then(() => {
-        if (!req.body.title) {
-          return res.status(400)
-            .send({
-              message: 'Please input a value to update role with'
-            });
-        }
-        next();
-      });
-  },
-  /**
    * Check for role edit and delete permission
    * @param {Object} req req object
    * @param {Object} res response object
