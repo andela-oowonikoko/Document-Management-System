@@ -1,6 +1,7 @@
 import express from 'express';
 import Roles from '../app/controllers/role';
 import Authentication from '../app/middlewares/Authentication';
+import hasPermission from '../app/middlewares/hasPermission';
 
 const rolesRouter = express.Router();
 
@@ -78,10 +79,10 @@ rolesRouter.route('/roles')
    *           $ref: '#/definitions/Role'
    */
   .get(Authentication.verifyToken,
-    Authentication.hasAdminPermission,
+    hasPermission.hasAdminPermission,
     Roles.getAll)
   .post(Authentication.verifyToken,
-    Authentication.hasAdminPermission,
+    hasPermission.hasAdminPermission,
     Roles.create);
 
 /**
@@ -197,15 +198,15 @@ rolesRouter.route('/roles/:id')
    *              $ref: '#/definitions/RoleUpdate'
    */
   .get(Authentication.verifyToken,
-    Authentication.hasAdminPermission,
+    hasPermission.hasAdminPermission,
     Roles.getRoleById)
   .put(Authentication.verifyToken,
-    Authentication.hasAdminPermission,
+    hasPermission.hasAdminPermission,
     Authentication.checkTitle,
     Authentication.modifyRolePermission,
     Roles.update)
   .delete(Authentication.verifyToken,
-    Authentication.hasAdminPermission,
+    hasPermission.hasAdminPermission,
     Authentication.modifyRolePermission,
     Roles.delete);
 

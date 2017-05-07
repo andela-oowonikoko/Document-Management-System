@@ -1,6 +1,8 @@
 import express from 'express';
 import Documents from '../app/controllers/document';
 import Authentication from '../app/middlewares/Authentication';
+import Validation from '../app/middlewares/Validation';
+import hasPermission from '../app/middlewares/hasPermission';
 
 const documentRouter = express.Router();
 
@@ -84,10 +86,10 @@ documentRouter.route('/documents')
    *           $ref: '#/definitions/Document'
    */
   .get(Authentication.verifyToken,
-    Authentication.validateSearch,
+    Validation.validateSearch,
     Documents.getAll)
   .post(Authentication.verifyToken,
-    Authentication.validateDocumentsInput,
+    Validation.validateDocumentsInput,
     Documents.create);
 
 /**
@@ -212,10 +214,10 @@ documentRouter.route('/documents/:id')
     Authentication.getSingleDocument,
     Documents.getDocument)
   .put(Authentication.verifyToken,
-    Authentication.hasDocumentPermission,
+    hasPermission.hasDocumentPermission,
     Documents.update)
   .delete(Authentication.verifyToken,
-    Authentication.hasDocumentPermission,
+    hasPermission.hasDocumentPermission,
     Documents.delete);
 
 /**

@@ -2,6 +2,8 @@ import path from 'path';
 import express from 'express';
 import User from '../app/controllers/user';
 import Authentication from '../app/middlewares/Authentication';
+import Validation from '../app/middlewares/Validation';
+import hasPermission from '../app/middlewares/hasPermission';
 
 const userRouter = express.Router();
 
@@ -95,10 +97,10 @@ userRouter.route('/users')
    *           $ref: '#/definitions/User'
    */
   .get(Authentication.verifyToken,
-    Authentication.validateSearch,
-    Authentication.hasAdminPermission,
+    Validation.validateSearch,
+    hasPermission.hasAdminPermission,
     User.getAll)
-  .post(Authentication.validateUserInput, User.create);
+  .post(Validation.validateUserInput, User.create);
 
 // Logs a user in
 /**
@@ -150,7 +152,7 @@ userRouter.route('/users/login')
    *         schema:
    *           $ref: '#/definitions/Login'
    */
-  .post(Authentication.validateLoginInput, User.login);
+  .post(Validation.validateLoginInput, User.login);
 
 // Logs a user out
 /**
@@ -321,10 +323,10 @@ userRouter.route('/users/:id')
    */
   .get(Authentication.verifyToken, Authentication.getSingleUser, User.getUser)
   .put(Authentication.verifyToken,
-    Authentication.validateUserUpdate,
+    Validation.validateUserUpdate,
     User.update)
-  .delete(Authentication.verifyToken, Authentication.validateDeleteUser,
-   Authentication.hasAdminPermission, User.delete);
+  .delete(Authentication.verifyToken, Validation.validateDeleteUser,
+   hasPermission.hasAdminPermission, User.delete);
 
 // Find all documents belonging to the user.
 /**
@@ -372,7 +374,7 @@ userRouter.route('/users/:id/documents')
    *             $ref: '#/definitions/FetchDoc'
    */
   .get(Authentication.verifyToken,
-    Authentication.validateSearch,
+    Validation.validateSearch,
     User.findUserDocuments);
 
 // Search for a user
