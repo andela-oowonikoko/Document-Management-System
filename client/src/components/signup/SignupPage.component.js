@@ -5,13 +5,30 @@ import SignupForm from './SignupForm.component';
 import { userSignupRequest } from '../../actions/signupActions';
 import { addFlashMessage } from '../../actions/flashMessages';
 
+/**
+ * @class SignupPage
+ * @extends {Component}
+ */
 class SignupPage extends Component {
+  /**
+   * @returns {object} object
+   * @memberOf SignupPage
+   */
   render() {
     const { userSignupRequest, addFlashMessage } = this.props;
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="" isDocumentActive="" isLoginActive="" isSignupActive="active" />
-        <SignupForm userSignupRequest={userSignupRequest} addFlashMessage={addFlashMessage} />
+        <Navbar
+          isUserActive=""
+          isHomeActive=""
+          isDocumentActive=""
+          isLoginActive=""
+          isSignupActive="active"
+        />
+        <SignupForm
+          userSignupRequest={userSignupRequest}
+          addFlashMessage={addFlashMessage}
+        />
       </div>
     );
   }
@@ -22,4 +39,5 @@ SignupPage.propTypes = {
   addFlashMessage: React.PropTypes.func.isRequired
 };
 
-export default connect(null, { userSignupRequest, addFlashMessage })(SignupPage);
+export default connect(null,
+  { userSignupRequest, addFlashMessage })(SignupPage);

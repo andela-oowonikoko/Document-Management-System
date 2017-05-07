@@ -1,5 +1,5 @@
 import db from '../../app/models/index';
-import Auth from '../middlewares/Auth';
+import Authentication from '../middlewares/Authentication';
 import Helper from '../Helper/Helper';
 
 const User = {
@@ -14,7 +14,7 @@ const User = {
     db.User
       .create(req.userInput)
       .then((user) => {
-        const token = Auth.getToken(user);
+        const token = Authentication.getToken(user);
         user = Helper.userProfile(user);
         return res.status(201)
           .send({
@@ -42,7 +42,7 @@ const User = {
       .then((user) => {
         if (user && user.validPassword(req.body.password)) {
           user.update({ active: true });
-          const token = Auth.getToken(user);
+          const token = Authentication.getToken(user);
           user = Helper.getUserProfile(user);
           return res.status(200)
             .send({

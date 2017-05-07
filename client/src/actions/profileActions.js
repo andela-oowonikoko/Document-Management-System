@@ -1,6 +1,12 @@
 import axios from 'axios';
 import { GET_CURRENT_USER } from './types';
 
+/**
+ * getCurrentUser
+ * @export
+ * @param {any} user
+ * @returns {object} object
+ */
 export function getCurrentUser(user) {
   return {
     type: GET_CURRENT_USER,
@@ -8,6 +14,12 @@ export function getCurrentUser(user) {
   };
 }
 
+/**
+ * getUser
+ * @export
+ * @param {any} userId
+ * @returns {object} object
+ */
 export default function getUser(userId) {
   return (dispatch) => {
     return axios.get(`/users/${userId}`)
@@ -16,6 +28,13 @@ export default function getUser(userId) {
   };
 }
 
+/**
+ * updateUser
+ * @export
+ * @param {any} data
+ * @param {any} userID
+ * @returns {object} object
+ */
 export function updateUser(data, userID) {
   return (dispatch) => {
     return axios.put(`/users/${userID}`, data)

@@ -3,11 +3,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../common/Nav.component';
 import MyDocumentList from './MyDocumentList.component';
-import { deleteDocument, updateDocument, fetchDocument } from '../../actions/documentActions';
+import { deleteDocument, updateDocument, fetchDocument }
+from '../../actions/documentActions';
 import Search from '../common/Search.component';
 import { searchDocuments } from '../../actions/searchActions';
 
+/**
+ * @class MyDocumentPage
+ * @extends {React.Component}
+ */
 class MyDocumentPage extends React.Component {
+  /**
+   * Creates an instance of MyDocumentPage.
+   * @memberOf MyDocumentPage
+   */
   constructor() {
     super();
     this.state = {
@@ -16,17 +25,30 @@ class MyDocumentPage extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  /**
+   * @returns {void}
+   * @memberOf MyDocumentPage
+   */
   componentDidMount() {
     this.props.fetchDocument(this.props.auth.user.userId);
   }
 
-  handleSearch(e) {
-    e.preventDefault();
-    const query = e.target.value;
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf MyDocumentPage
+   */
+  handleSearch(event) {
+    event.preventDefault();
+    const query = event.target.value;
     this.setState({ query });
     this.props.searchDocuments(query);
   }
 
+  /**
+   * @returns {object} object
+   * @memberOf MyDocumentPage
+   */
   render() {
     const documentSearchResult = this.props.search;
     const renderedDocuments = this.state.query.trim().length > 0
@@ -34,14 +56,23 @@ class MyDocumentPage extends React.Component {
 
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="" isDocumentActive="active" isLoginActive="" isSignupActive="" />
+        <Navbar
+          isUserActive=""
+          isHomeActive=""
+          isDocumentActive="active"
+          isLoginActive=""
+          isSignupActive=""
+        />
         <div>
           <div className="row">
             <div className="col s7 push-s4">
               <Search onChange={this.handleSearch} />
             </div>
             <div className="col s5 pull-s7 btnViewDocuments">
-              <Link className="btn create-list-link hero-btn" to="/app/createdocument">
+              <Link
+                className="btn create-list-link hero-btn"
+                to="/app/createdocument"
+              >
                 Add Document
               </Link>
             </div>
@@ -73,6 +104,10 @@ MyDocumentPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
+/**
+ * @param {any} state
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     documents: state.documents,
@@ -82,4 +117,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { deleteDocument, updateDocument, searchDocuments, fetchDocument })(MyDocumentPage);
+export default connect(mapStateToProps,
+  { deleteDocument,
+    updateDocument,
+    searchDocuments,
+    fetchDocument })(MyDocumentPage);

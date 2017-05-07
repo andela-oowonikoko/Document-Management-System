@@ -3,6 +3,12 @@ import jwt from 'jsonwebtoken';
 import setHeaderToken from '../utils/setHeaderToken';
 import { SET_CURRENT_USER } from './types';
 
+/**
+ * setCurrentUser
+ * @export
+ * @param {any} user
+ * @returns {object} object
+ */
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
@@ -10,6 +16,12 @@ export function setCurrentUser(user) {
   };
 }
 
+/**
+ * userSignupRequest
+ * @export
+ * @param {any} userData
+ * @returns {object} object
+ */
 export function userSignupRequest(userData) {
   return (dispatch) => {
     return axios.post('/users', userData)

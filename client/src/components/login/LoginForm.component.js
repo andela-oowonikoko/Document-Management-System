@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 
+/**
+ * @class LoginForm
+ * @extends {Component}
+ */
 class LoginForm extends Component {
+  /**
+   * Creates an instance of LoginForm.
+   * @param {any} props
+   * @memberOf LoginForm
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -11,16 +20,26 @@ class LoginForm extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf LoginForm
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf LoginForm
+   */
+  onSubmit(event) {
+    event.preventDefault();
     this.props.userLoginRequest(this.state).then((res) => {
       this.context.router.history.push('/app/document')
       .then((res) => {
-      })
+      });
     }).catch((err) => {
       Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
@@ -36,10 +55,12 @@ class LoginForm extends Component {
         <form onSubmit={this.onSubmit} className="loginForm">
           <div className="form-control">
             <h1 className="loginHeader">Login</h1>
+            <label className="active" htmlFor="email">Email:</label>
             <input
               className="form-control"
               value={this.state.username}
               onChange={this.onChange}
+              id="email"
               name="email"
               placeholder="Email"
               type="email"
@@ -47,11 +68,13 @@ class LoginForm extends Component {
             />
           </div>
           <div className="form-control">
+            <label className="active" htmlFor="password">Password:</label>
             <input
               placeholder="Password"
               value={this.state.password}
               onChange={this.onChange}
               type="password"
+              id="password"
               name="password"
               className="form-control"
               required

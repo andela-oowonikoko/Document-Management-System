@@ -10,6 +10,10 @@ import CreateDocument from '../document/CreateDocumentPage.component';
 import Profile from '../profile/ProfilePage.component';
 import Users from '../user/UserPage.component';
 
+/**
+ * @class App
+ * @extends {Component}
+ */
 class App extends Component {
   /**
    * renders the app component

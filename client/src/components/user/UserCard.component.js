@@ -1,9 +1,17 @@
 import React from 'react';
-import { Modal, Button, Row, Input } from 'react-materialize';
-import { browserHistory } from 'react-router';
+import { Button } from 'react-materialize';
 
+/**
+ * @class UserCard
+ * @extends {React.Component}
+ */
 class UserCard extends React.Component {
-  constructor (props) {
+  /**
+   * Creates an instance of UserCard.
+   * @param {any} props
+   * @memberOf UserCard
+   */
+  constructor(props) {
     super(props);
     this.state = {
       id: '',
@@ -15,18 +23,28 @@ class UserCard extends React.Component {
     };
   }
 
-  onChange(e) {
-    return this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @returns {object} object
+   * @memberOf UserCard
+   */
+  onChange(event) {
+    return this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(e){
-    e.preventDefault();
-    const id = e.target.id.value;
-    const firstName = e.target.firstName.value;
-    const lastName = e.target.lastName.value;
-    const username = e.target.username.value;
-    const email = e.target.title.value;
-    const rolesId = e.target.access.value;
+  /**
+   * @param {any} event
+   * @return {void}
+   * @memberOf UserCard
+   */
+  onSubmit(event) {
+    event.preventDefault();
+    const id = event.target.id.value;
+    const firstName = event.target.firstName.value;
+    const lastName = event.target.lastName.value;
+    const username = event.target.username.value;
+    const email = event.target.title.value;
+    const rolesId = event.target.access.value;
     const userDetails = { id, firstName, lastName, username, email, rolesId };
 
     this.props.updateUser(userDetails).then((res) => {
@@ -38,7 +56,7 @@ class UserCard extends React.Component {
   }
 
   /**
-   * @returns void
+   * @returns {void}
    * @memberOf DocumentCard
    */
   render() {
@@ -70,7 +88,8 @@ class UserCard extends React.Component {
             <div className="userDate">
               <span className="">
                 Created At:
-                { (this.props.getUser.createdAt) ? this.props.getUser.createdAt.split('T')[0] : ''}
+                { (this.props.getUser.createdAt) ?
+                this.props.getUser.createdAt.split('T')[0] : ''}
               </span>
             </div>
             <Button

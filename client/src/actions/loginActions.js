@@ -3,6 +3,12 @@ import jwt from 'jsonwebtoken';
 import setHeaderToken from '../utils/setHeaderToken';
 import { SET_CURRENT_USER } from './types';
 
+/**
+ * setCurrentUser
+ * @export
+ * @param {any} user
+ * @returns {object} object
+ */
 export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
@@ -10,6 +16,11 @@ export function setCurrentUser(user) {
   };
 }
 
+/**
+ * logout
+ * @export
+ * @returns {func} function
+ */
 export function logout() {
   return (dispatch) => {
     localStorage.removeItem('token');
@@ -18,6 +29,12 @@ export function logout() {
   };
 }
 
+/**
+ * userLoginRequest
+ * @export
+ * @param {any} userData
+ * @returns {object} object
+ */
 export function userLoginRequest(userData) {
   return (dispatch) => {
     return axios.post('/users/login', userData)

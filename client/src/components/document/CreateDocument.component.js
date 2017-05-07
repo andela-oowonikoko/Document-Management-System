@@ -3,7 +3,16 @@ import { Row, Input, Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
 import swal from 'sweetalert';
 
+/**
+ * @class CreateDocument
+ * @extends {Component}
+ */
 class CreateDocument extends Component {
+  /**
+   * Creates an instance of CreateDocument.
+   * @param {any} props
+   * @memberOf CreateDocument
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,12 +24,22 @@ class CreateDocument extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf CreateDocument
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(e) {
-    e.preventDefault();
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf CreateDocument
+   */
+  onSubmit(event) {
+    event.preventDefault();
     this.props.saveDocument(this.state).then((res) => {
       this.context.router.history.push('/app/mydocument').then(() => {
         Materialize.toast(res.data.message, 4000, 'rounded');

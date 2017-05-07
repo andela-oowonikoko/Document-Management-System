@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Button, Icon, Input } from 'react-materialize';
+import { Icon, Input } from 'react-materialize';
 
 const Search = ({ onChange }) =>
   <div>

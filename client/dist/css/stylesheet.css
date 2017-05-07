@@ -54,3 +54,7 @@ a {
 .brand-logo {
   margin-left: 40px;
 }
+
+.documentSpan {
+  display: block;
+}

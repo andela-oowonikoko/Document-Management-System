@@ -1,13 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import DocumentsList from './DocumentList.component';
 import Navbar from '../common/Nav.component';
-import { fetchDocuments, deleteDocument, updateDocument } from '../../actions/documentActions';
+import { fetchDocuments, deleteDocument, updateDocument }
+from '../../actions/documentActions';
 import { searchDocuments } from '../../actions/searchActions';
 import Search from '../common/Search.component';
 
+/**
+ * @class DocumentPage
+ * @extends {React.Component}
+ */
 class DocumentPage extends React.Component {
+  /**
+   * Creates an instance of DocumentPage.
+   * @memberOf DocumentPage
+   */
   constructor() {
     super();
     this.state = {
@@ -16,17 +24,30 @@ class DocumentPage extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
+  /**
+   * @returns {void}
+   * @memberOf DocumentPage
+   */
   componentDidMount() {
     this.props.fetchDocuments();
   }
 
-  handleSearch(e) {
-    e.preventDefault();
-    const query = e.target.value;
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberOf DocumentPage
+   */
+  handleSearch(event) {
+    event.preventDefault();
+    const query = event.target.value;
     this.setState({ query });
     this.props.searchDocuments(query);
   }
 
+  /**
+   * @returns {object} object
+   * @memberOf DocumentPage
+   */
   render() {
     const documentSearchResult = this.props.search;
     const renderedDocuments = this.state.query.trim().length > 0
@@ -34,7 +55,13 @@ class DocumentPage extends React.Component {
 
     return (
       <div>
-        <Navbar isUserActive="" isHomeActive="active" isDocumentActive="" isLoginActive="" isSignupActive="" />
+        <Navbar
+          isUserActive=""
+          isHomeActive="active"
+          isDocumentActive=""
+          isLoginActive=""
+          isSignupActive=""
+        />
         <div>
           <div className="row">
             <div className="col s7 push-s4">
@@ -67,6 +94,10 @@ DocumentPage.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
+/**
+ * @param {any} state
+ * @returns {object} object
+ */
 function mapStateToProps(state) {
   return {
     documents: state.documents,
@@ -75,4 +106,9 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchDocuments, deleteDocument, updateDocument, searchDocuments })(DocumentPage);
+export default connect(mapStateToProps,
+  { fetchDocuments,
+    deleteDocument,
+    updateDocument,
+    searchDocuments
+  })(DocumentPage);
