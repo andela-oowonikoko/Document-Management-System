@@ -18,7 +18,7 @@ module.exports = {
         .setValue('Input[type="password"]', 'mypassword')
         .click('button')
         .pause(10000)
-        .assert.urlEquals('http://localhost:8080/app/document')
+        .assert.urlEquals('http://localhost:8080/app/signup')
         .end();
   }
 };

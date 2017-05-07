@@ -1,7 +1,7 @@
 import expect from 'expect';
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import ProfileForm from '../../components/profile/ProfileForm.component';
+import ProfileForm from '../../components/profile/ProfilePage.component';
 
 function setup() {
   const props = {
