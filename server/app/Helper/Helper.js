@@ -66,7 +66,7 @@ const Helper = {
       lastName: data.lastname,
       email: data.email,
       rolesId: data.roleId,
-      createAt: data.createdAt,
+      createdAt: data.createdAt,
       updatedAt: data.updatedAt
     };
   },
@@ -124,12 +124,6 @@ const Helper = {
       [
         { access: 'public' },
         { ownerId: req.tokenDecode.userId },
-        {
-          $and: [
-            { access: 'role' },
-            { ownerRoleId: req.tokenDecode.roleId }
-          ]
-        }
       ]
     };
     return access;
@@ -166,6 +160,21 @@ const Helper = {
       createdAt: data.createdAt,
       updatedAt: data.updatedAt
     };
+  },
+  /**
+   * Query for search terms
+   * @param {Array} terms array of search terms
+   * @returns {Object} return user's data
+   */
+  likeSearch(terms) {
+    const like = {
+      $or:
+      [
+        { title: { $iLike: { $any: terms } } },
+        { content: { $iLike: { $any: terms } } }
+      ]
+    };
+    return like;
   },
   /**
    * Get errors
