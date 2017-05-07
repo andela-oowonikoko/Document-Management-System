@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import db from '../../app/models/index';
-import Helper from '../Helper/Helper';
 
 dotenv.config();
 

@@ -21,7 +21,8 @@ class CreateDocumentPage extends Component {
           isUserActive=""
           isHomeActive=""
           isDocumentActive="active"
-          isLoginActive="" isSignupActive="" />
+          isLoginActive="" isSignupActive=""
+        />
         <CreateDocument saveDocument={saveDocument} />
       </div>
     );
