@@ -96,17 +96,30 @@ const Documents = {
       );
   },
   /**
-    * Get document by title
-    * Route: GET: /search/documents/?q=
+    * Search document
+    * Route: GET: /searchs?query={}
     * @param {Object} req request object
     * @param {Object} res response object
     * @returns {void|Response} response object or void
     */
-  getDocumentByTitle(req, res) {
-    return res.status(200)
-      .send({
-        message: 'You have successfully retrived this document',
-        document: Helper.getDocument(req.singleDocument)
+  search(req, res) {
+    req.dmsFilter.attributes = Helper.getDocAttribute();
+    db.Documents
+      .findAndCountAll(req.dmsFilter)
+      .then((documents) => {
+        const condition = {
+          count: documents.count,
+          limit: req.dmsFilter.limit,
+          offset: req.dmsFilter.offset
+        };
+        delete documents.count;
+        const pagination = Helper.pagination(condition);
+        res.status(200)
+          .send({
+            message: 'This search was successfull',
+            documents,
+            pagination
+          });
       });
   }
 };
