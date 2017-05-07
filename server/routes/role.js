@@ -204,11 +204,11 @@ rolesRouter.route('/roles/:id')
   .put(Authentication.verifyToken,
     hasPermission.hasAdminPermission,
     Validation.validateRoleTitle,
-    Authentication.modifyRolePermission,
+    hasPermission.modifyRolePermission,
     Roles.update)
   .delete(Authentication.verifyToken,
     hasPermission.hasAdminPermission,
-    Authentication.modifyRolePermission,
+    hasPermission.modifyRolePermission,
     Roles.delete);
 
 export default rolesRouter;
