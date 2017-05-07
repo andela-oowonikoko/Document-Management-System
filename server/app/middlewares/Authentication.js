@@ -7,7 +7,7 @@ dotenv.config();
 
 const secretKey = process.env.SECRETKEY;
 
-const Auth = {
+const Authentication = {
   /**
    * Verify user token
    * @param {Object} req request object
@@ -591,4 +591,4 @@ const Auth = {
   }
 };
 
-export default Auth;
+export default Authentication;
