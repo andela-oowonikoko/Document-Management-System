@@ -23,6 +23,9 @@ describe('Document Model', () => {
 
   after((done) => { db.Roles.destroy({ where: {} }); done(); });
 
+  describe('CREATE DOCuMENT', () => {
+
+  });
   describe('CREATE Document', () => {
     it('should create a document', (done) => {
       helper.publicDocument.ownerRoleId = regularUser.rolesId;

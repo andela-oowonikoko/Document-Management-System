@@ -88,45 +88,6 @@ describe('MIDDLEWARE UNIT TEST', () => {
     });
   });
 
-//   describe('Admin', () => {
-//     it('should not continue when requester is not an admin user', (done) => {
-//       const response = responseEvent();
-//       request = httpMocks.createRequest({
-//         method: 'GET',
-//         url: '/roles',
-//         headers: { 'x-access-token': regularToken },
-//         tokenDecode: { roleId: regularUser.rolesId }
-//       });
-//       const middlewareStub = {
-//         callback: () => { }
-//       };
-//       sinon.spy(middlewareStub, 'callback');
-//       Auth.hasAdminPermission(request, response, middlewareStub.callback);
-//       response.on('end', () => {
-//         expect(response._getData().message).to
-//           .equal('You are not permitted to perform this action');
-//         done();
-//       });
-//     });
-
-//     // it('should continue for admin user', (done) => {
-//     //   const response = responseEvent();
-//     //   request = httpMocks.createRequest({
-//     //     method: 'GET',
-//     //     url: '/roles',
-//     //     headers: { 'x-access-token': adminToken },
-//     //     tokenDecode: { roleId: helper.adminUser.roleId }
-//     //   });
-//     //   const middlewareStub = {
-//     //     callback: () => { }
-//     //   };
-//     //   sinon.spy(middlewareStub, 'callback');
-//     //   Auth.hasAdminPermission(request, response, middlewareStub.callback);
-//     //   expect(middlewareStub.callback).to.have.been.called;
-//     //   done();
-//     // });
-//   });
-
   describe('validateUserInput', () => {
     it('should not continue when email is null', () => {
       const response = responseEvent();
@@ -212,29 +173,6 @@ describe('MIDDLEWARE UNIT TEST', () => {
   });
 
   describe('validateUserUpdate', () => {
-    // it('should not continue when user want to modify admin profile', () => {
-    //   const response = responseEvent();
-    //   request = httpMocks.createRequest({
-    //     method: 'PUT',
-    //     url: '/users/1',
-    //     params: {
-    //       id: '1'
-    //     },
-    //     body: {
-    //       email: 'new@mail.com',
-    //     },
-    //   });
-    //   const middlewareStub = {
-    //     callback: () => { }
-    //   };
-    //   sinon.spy(middlewareStub, 'callback');
-    //   response.on('end', () => {
-    //     expect(response._getData().message).to
-    //       .equal('You are not permitted to modify the default admin user');
-    //   });
-    //   Auth.validateUserUpdate(request, response, middlewareStub.callback);
-    // });
-
     it('should continue when user is the owner', (done) => {
       const response = responseEvent();
       request = httpMocks.createRequest({
