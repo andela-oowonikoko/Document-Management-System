@@ -3,12 +3,12 @@ const path = require('path');
 
 module.exports = {
   entry: [
-    './client/src/index'
+    './client/src/index.jsx'
   ],
   module: {
     loaders: [
       {
-        test: /\.js?$/,
+        test: /\.(js|jsx)$/,
         loader: 'babel',
         exclude: /node_modules/,
         query: {
@@ -18,7 +18,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js']
+    extensions: ['', '.js', '.jsx']
   },
   output: {
     path: path.join(__dirname, 'client/dist/'),
