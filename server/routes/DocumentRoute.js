@@ -1,5 +1,5 @@
 import express from 'express';
-import Documents from '../app/controllers/document';
+import Documents from '../app/controllers/DocumentController';
 import Authentication from '../app/middlewares/Authentication';
 import Validation from '../app/middlewares/Validation';
 import hasPermission from '../app/middlewares/hasPermission';
