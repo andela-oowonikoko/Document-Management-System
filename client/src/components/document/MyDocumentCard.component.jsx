@@ -172,6 +172,7 @@ class MyDocumentCard extends React.Component {
                     value={this.props.document.id}
                   />
                 </Row>
+                <label className="active editLabel" htmlFor="title">Title:</label>
                 <Row>
                   <Input
                     s={6}
@@ -180,6 +181,9 @@ class MyDocumentCard extends React.Component {
                     this.props.document.title : this.state.title}
                     onChange={e => this.onChange(e)}
                   />
+                </Row>
+                <label className="active editLabel" htmlFor="access">Access:</label>
+                <Row>
                   <Input
                     s={6}
                     validate
