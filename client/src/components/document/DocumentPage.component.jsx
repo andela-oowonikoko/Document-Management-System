@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Pagination } from 'react-materialize';
 import DocumentsList from './DocumentList.component';
 import Navbar from '../common/Nav.component';
 import { fetchDocuments, deleteDocument, updateDocument }
 from '../../actions/documentActions';
+import paginateDocumentActions from '../../actions/paginateDocumentActions';
 import { searchDocuments } from '../../actions/searchActions';
 import Search from '../common/Search.component';
 
@@ -19,7 +21,9 @@ class DocumentPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      query: ''
+      query: '',
+      limit: 9,
+      offset: 0
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -29,7 +33,8 @@ class DocumentPage extends React.Component {
    * @memberOf DocumentPage
    */
   componentDidMount() {
-    this.props.fetchDocuments();
+    // this.props.fetchDocuments();
+    this.props.paginateDocumentActions(this.state.offset, this.state.limit);
   }
 
   /**
@@ -75,6 +80,18 @@ class DocumentPage extends React.Component {
             currentUser={this.props.auth.user}
           />
         </div>
+        <div>
+          <center>
+            <Pagination
+              className="pag"
+              items={this.props.pageCount}
+              onSelect={(page) => {
+                const offset = (page - 1) * 9;
+                this.props.paginateDocumentActions(offset, this.state.limit);
+              }}
+            />
+          </center>
+        </div>
       </div>
     );
   }
@@ -82,9 +99,11 @@ class DocumentPage extends React.Component {
 
 DocumentPage.propTypes = {
   documents: React.PropTypes.array.isRequired,
+  pageCount: React.PropTypes.number.isRequired,
   fetchDocuments: React.PropTypes.func.isRequired,
   deleteDocument: React.PropTypes.func.isRequired,
   updateDocument: React.PropTypes.func.isRequired,
+  paginateDocumentActions: React.PropTypes.func.isRequired,
   search: React.PropTypes.array.isRequired,
   searchDocuments: React.PropTypes.func.isRequired,
   auth: React.PropTypes.object.isRequired
@@ -100,7 +119,8 @@ DocumentPage.contextTypes = {
  */
 function mapStateToProps(state) {
   return {
-    documents: state.documents,
+    documents: state.pagination.items,
+    pageCount: state.pagination.pageCount,
     search: state.search,
     auth: state.auth
   };
@@ -110,5 +130,6 @@ export default connect(mapStateToProps,
   { fetchDocuments,
     deleteDocument,
     updateDocument,
+    paginateDocumentActions,
     searchDocuments
   })(DocumentPage);

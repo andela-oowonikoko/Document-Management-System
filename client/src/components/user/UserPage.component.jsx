@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Pagination } from 'react-materialize';
 import UserList from './UserList.component';
 import Navbar from '../common/Nav.component';
 import { searchUsers } from '../../actions/searchActions';
 import Search from '../common/Search.component';
 import { fetchUsers, deleteUser, updateUser } from '../../actions/userActions';
+import paginateUserActions from '../../actions/paginateUserActions';
 
 /**
  * @class UserPage
@@ -18,7 +20,9 @@ class UserPage extends React.Component {
   constructor() {
     super();
     this.state = {
-      query: ''
+      query: '',
+      limit: 9,
+      offset: 0
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -28,7 +32,8 @@ class UserPage extends React.Component {
    * @memberOf UserPage
    */
   componentDidMount() {
-    this.props.fetchUsers();
+    // this.props.fetchUsers();
+    this.props.paginateUserActions(this.state.offset, this.state.limit);
   }
 
   /**
@@ -71,6 +76,18 @@ class UserPage extends React.Component {
           deleteUser={this.props.deleteUser}
           updateUser={this.props.updateUser}
         />
+        <div>
+          <center>
+            <Pagination
+              className="pag"
+              items={this.props.pageCount}
+              onSelect={(page) => {
+                const offset = (page - 1) * 9;
+                this.props.paginateUserActions(offset, this.state.limit);
+              }}
+            />
+          </center>
+        </div>
       </div>
     );
   }
@@ -78,7 +95,9 @@ class UserPage extends React.Component {
 
 UserPage.propTypes = {
   getUsers: React.PropTypes.array.isRequired,
+  pageCount: React.PropTypes.number.isRequired,
   fetchUsers: React.PropTypes.func.isRequired,
+  paginateUserActions: React.PropTypes.func.isRequired,
   deleteUser: React.PropTypes.func.isRequired,
   updateUser: React.PropTypes.func.isRequired,
   search: React.PropTypes.array.isRequired,
@@ -95,10 +114,15 @@ UserPage.contextTypes = {
  */
 function mapStateToProps(state) {
   return {
-    getUsers: state.getUsers,
+    getUsers: state.pagination.items,
+    pageCount: state.pagination.pageCount,
     search: state.search
   };
 }
 
 export default connect(mapStateToProps,
-  { fetchUsers, deleteUser, updateUser, searchUsers })(UserPage);
+  { fetchUsers,
+    deleteUser,
+    updateUser,
+    searchUsers,
+    paginateUserActions })(UserPage);

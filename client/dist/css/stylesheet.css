@@ -58,3 +58,8 @@ a {
 .documentSpan {
   display: block;
 }
+
+.editLabel {
+  margin-left: 10px;
+  font-size: 1em;
+}

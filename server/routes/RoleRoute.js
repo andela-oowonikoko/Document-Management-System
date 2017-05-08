@@ -1,5 +1,5 @@
 import express from 'express';
-import Roles from '../app/controllers/role';
+import Roles from '../app/controllers/RoleController';
 import Authentication from '../app/middlewares/Authentication';
 import hasPermission from '../app/middlewares/hasPermission';
 import Validation from '../app/middlewares/Validation';

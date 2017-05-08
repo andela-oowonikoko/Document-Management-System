@@ -1,15 +1,27 @@
 import React from 'react';
 import { Modal, Button, Row, Input } from 'react-materialize';
 
+// Require Editor JS files.
+require('froala-editor/js/froala_editor.pkgd.min.js');
+
+// Require Editor CSS files.
+require('froala-editor/css/froala_style.min.css');
+require('froala-editor/css/froala_editor.pkgd.min.css');
+
+// Require Font Awesome.
+// require('font-awesome/css/font-awesome.css');
+
+const FroalaEditor = require('react-froala-wysiwyg');
+
 /**
- * @class DocumentCard
+ * @class MyDocumentCard
  * @extends {React.Component}
  */
-class DocumentCard extends React.Component {
+class MyDocumentCard extends React.Component {
   /**
-   * Creates an instance of DocumentCard.
+   * Creates an instance of MyDocumentCard.
    * @param {any} props
-   * @memberOf DocumentCard
+   * @memberOf MyDocumentCard
    */
   constructor(props) {
     super(props);
@@ -21,12 +33,13 @@ class DocumentCard extends React.Component {
       ownerId: '',
       ownerRoleId: ''
     };
+    this.handleModelChange = this.handleModelChange.bind(this);
   }
 
   /**
    * @param {any} event
    * @returns {object} object
-   * @memberOf DocumentCard
+   * @memberOf MyDocumentCard
    */
   onChange(event) {
     return this.setState({ [event.target.name]: event.target.value });
@@ -35,22 +48,49 @@ class DocumentCard extends React.Component {
   /**
    * @param {any} event
    * @returns {void}
-   * @memberOf DocumentCard
+   * @memberOf MyDocumentCard
    */
   onSubmit(event) {
     event.preventDefault();
     const id = event.target.id.value;
     const title = event.target.title.value;
     const access = event.target.access.value;
-    const content = event.target.content.value;
+    const content = this.state.content;
     const documentDetails = { id, title, access, content };
 
     this.props.updateDocument(documentDetails).then((res) => {
-      this.context.router.history.push('/app/document');
+      this.context.router.history.push('/app/mydocument');
     })
     .catch((err) => {
       Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
+  }
+
+  /**
+   * @param {any} event
+   * @returns {void}
+   * @memberof MyDocumentCard
+   */
+  onViewUpdate(event) {
+    event.preventDefault();
+    const id = this.props.document.id;
+    const content = this.state.content;
+    const documentDetails = { id, content };
+
+    this.props.updateDocument(documentDetails).then((res) => {
+    })
+    .catch((err) => {
+      Materialize.toast(err.response.data.message, 4000, 'rounded');
+    });
+  }
+
+  /**
+   * @param {object} content
+   * @memberof DocumentCreateForm
+   * @returns {void}
+   */
+  handleModelChange(content) {
+    this.setState({ content });
   }
 
   /**
@@ -63,7 +103,6 @@ class DocumentCard extends React.Component {
         <div className="card qBox">
           <div className="card-content white-text">
             <span className="card-title">{this.props.document.title}</span>
-            <p>{this.props.document.content}</p>
           </div>
           <div className="card-action">
             <div className="documentDate">
@@ -77,6 +116,35 @@ class DocumentCard extends React.Component {
                 { this.props.document.access }
               </span>
             </div>
+            <Modal
+              header="View Document"
+              trigger={
+                <Button
+                  waves="light"
+                  className="btn-floating light-green darken-3 right"
+                >
+                  <i className="material-icons">info</i>
+                </Button>}
+            >
+              <form
+                className="col s12"
+                method="post"
+                onSubmit={e => this.onViewUpdate(e)}
+              >
+                <FroalaEditor
+                  validate
+                  tag="textarea"
+                  config={this.config}
+                  model={this.state.content === ''
+                  ? this.props.document.content
+                  : this.state.content}
+                  onModelChange={this.handleModelChange}
+                />
+                <Button className="teal lighten-2" waves="light" type="submit">
+                  UPDATE
+                </Button>
+              </form>
+            </Modal>
             {this.props.currentUser.userId ===
             this.props.document.ownerId && <Modal
               header="Edit Document"
@@ -104,6 +172,7 @@ class DocumentCard extends React.Component {
                     value={this.props.document.id}
                   />
                 </Row>
+                <label className="active editLabel" htmlFor="title">Title:</label>
                 <Row>
                   <Input
                     s={6}
@@ -112,6 +181,9 @@ class DocumentCard extends React.Component {
                     this.props.document.title : this.state.title}
                     onChange={e => this.onChange(e)}
                   />
+                </Row>
+                <label className="active editLabel" htmlFor="access">Access:</label>
+                <Row>
                   <Input
                     s={6}
                     validate
@@ -126,13 +198,14 @@ class DocumentCard extends React.Component {
                   </Input>
                 </Row>
                 <Row>
-                  <textarea
-                    name="content"
-                    value={this.state.content === '' ?
-                    this.props.document.content : this.state.content}
-                    onChange={e => this.onChange(e)}
-                    label="Content"
-                    className="materialize-textarea"
+                  <FroalaEditor
+                    validate
+                    tag="textarea"
+                    config={this.config}
+                    model={this.state.content === ''
+                    ? this.props.document.content
+                    : this.state.content}
+                    onModelChange={this.handleModelChange}
                   />
                 </Row>
                 <Button className="teal lighten-2" waves="light" type="submit">
@@ -155,15 +228,15 @@ class DocumentCard extends React.Component {
   }
 }
 
-DocumentCard.propTypes = {
+MyDocumentCard.propTypes = {
   document: React.PropTypes.object.isRequired,
   deleteDocument: React.PropTypes.func.isRequired,
   updateDocument: React.PropTypes.func.isRequired,
   currentUser: React.PropTypes.object.isRequired
 };
 
-DocumentCard.contextTypes = {
+MyDocumentCard.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default DocumentCard;
+export default MyDocumentCard;

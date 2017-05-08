@@ -1,6 +1,6 @@
 import path from 'path';
 import express from 'express';
-import User from '../app/controllers/user';
+import User from '../app/controllers/UserController';
 import Authentication from '../app/middlewares/Authentication';
 import Validation from '../app/middlewares/Validation';
 import hasPermission from '../app/middlewares/hasPermission';
