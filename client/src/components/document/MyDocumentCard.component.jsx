@@ -67,6 +67,24 @@ class MyDocumentCard extends React.Component {
   }
 
   /**
+   * @param {any} event
+   * @returns {void}
+   * @memberof MyDocumentCard
+   */
+  onViewUpdate(event) {
+    event.preventDefault();
+    const id = this.props.document.id;
+    const content = this.state.content;
+    const documentDetails = { id, content };
+
+    this.props.updateDocument(documentDetails).then((res) => {
+    })
+    .catch((err) => {
+      Materialize.toast(err.response.data.message, 4000, 'rounded');
+    });
+  }
+
+  /**
    * @param {object} content
    * @memberof DocumentCreateForm
    * @returns {void}
@@ -85,7 +103,6 @@ class MyDocumentCard extends React.Component {
         <div className="card qBox">
           <div className="card-content white-text">
             <span className="card-title">{this.props.document.title}</span>
-            <p>{this.props.document.content}</p>
           </div>
           <div className="card-action">
             <div className="documentDate">
@@ -99,6 +116,35 @@ class MyDocumentCard extends React.Component {
                 { this.props.document.access }
               </span>
             </div>
+            <Modal
+              header="View Document"
+              trigger={
+                <Button
+                  waves="light"
+                  className="btn-floating light-green darken-3 right"
+                >
+                  <i className="material-icons">info</i>
+                </Button>}
+            >
+              <form
+                className="col s12"
+                method="post"
+                onSubmit={e => this.onViewUpdate(e)}
+              >
+                <FroalaEditor
+                  validate
+                  tag="textarea"
+                  config={this.config}
+                  model={this.state.content === ''
+                  ? this.props.document.content
+                  : this.state.content}
+                  onModelChange={this.handleModelChange}
+                />
+                <Button className="teal lighten-2" waves="light" type="submit">
+                  UPDATE
+                </Button>
+              </form>
+            </Modal>
             {this.props.currentUser.userId ===
             this.props.document.ownerId && <Modal
               header="Edit Document"

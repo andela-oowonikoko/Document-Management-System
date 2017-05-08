@@ -132,7 +132,7 @@ export function updateDocument(data) {
     return axios.put(`/documents/${data.id}`, data)
       .then(res => {
         res.data;
-        window.location = '/app/mydocument';
+        Materialize.toast('Your document has been updated successfully', 4000, 'rounded');
       })
       .then(data => dispatch(documentUpdated(data)));
   };
