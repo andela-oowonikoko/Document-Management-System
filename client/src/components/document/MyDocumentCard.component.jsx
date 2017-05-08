@@ -1,6 +1,18 @@
 import React from 'react';
 import { Modal, Button, Row, Input } from 'react-materialize';
 
+// Require Editor JS files.
+require('froala-editor/js/froala_editor.pkgd.min.js');
+
+// Require Editor CSS files.
+require('froala-editor/css/froala_style.min.css');
+require('froala-editor/css/froala_editor.pkgd.min.css');
+
+// Require Font Awesome.
+// require('font-awesome/css/font-awesome.css');
+
+const FroalaEditor = require('react-froala-wysiwyg');
+
 /**
  * @class MyDocumentCard
  * @extends {React.Component}
@@ -21,6 +33,7 @@ class MyDocumentCard extends React.Component {
       ownerId: '',
       ownerRoleId: ''
     };
+    this.handleModelChange = this.handleModelChange.bind(this);
   }
 
   /**
@@ -42,7 +55,7 @@ class MyDocumentCard extends React.Component {
     const id = event.target.id.value;
     const title = event.target.title.value;
     const access = event.target.access.value;
-    const content = event.target.content.value;
+    const content = this.state.content;
     const documentDetails = { id, title, access, content };
 
     this.props.updateDocument(documentDetails).then((res) => {
@@ -51,6 +64,15 @@ class MyDocumentCard extends React.Component {
     .catch((err) => {
       Materialize.toast(err.response.data.message, 4000, 'rounded');
     });
+  }
+
+  /**
+   * @param {object} content
+   * @memberof DocumentCreateForm
+   * @returns {void}
+   */
+  handleModelChange(content) {
+    this.setState({ content });
   }
 
   /**
@@ -126,13 +148,14 @@ class MyDocumentCard extends React.Component {
                   </Input>
                 </Row>
                 <Row>
-                  <textarea
-                    name="content"
-                    value={this.state.content === '' ?
-                    this.props.document.content : this.state.content}
-                    onChange={e => this.onChange(e)}
-                    label="Content"
-                    className="materialize-textarea"
+                  <FroalaEditor
+                    validate
+                    tag="textarea"
+                    config={this.config}
+                    model={this.state.content === ''
+                    ? this.props.document.content
+                    : this.state.content}
+                    onModelChange={this.handleModelChange}
                   />
                 </Row>
                 <Button className="teal lighten-2" waves="light" type="submit">

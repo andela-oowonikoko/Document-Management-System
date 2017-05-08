@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import { Row, Input, Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
-import swal from 'sweetalert';
+
+// Require Editor JS files.
+require('froala-editor/js/froala_editor.pkgd.min.js');
+
+// Require Editor CSS files.
+require('froala-editor/css/froala_style.min.css');
+require('froala-editor/css/froala_editor.pkgd.min.css');
+
+// Require Font Awesome.
+// require('font-awesome/css/font-awesome.css');
+
+let FroalaEditor = require('react-froala-wysiwyg');
 
 /**
  * @class CreateDocument
@@ -22,6 +33,7 @@ class CreateDocument extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleModelChange = this.handleModelChange.bind(this);
   }
 
   /**
@@ -50,6 +62,15 @@ class CreateDocument extends Component {
   }
 
   /**
+   * @param {object} content
+   * @memberof DocumentCreateForm
+   * @returns {void}
+   */
+  handleModelChange(content) {
+    this.setState({ content });
+  }
+
+  /**
    * renders the CreateDocument component
    * @returns {void}
    * @memberOf CreateDocument
@@ -74,7 +95,7 @@ class CreateDocument extends Component {
               value={this.state.title}
               required
             />
-            <Input
+            {/*<Input
               placeholder="Content"
               s={12}
               validate
@@ -83,7 +104,7 @@ class CreateDocument extends Component {
               onChange={this.onChange}
               value={this.state.content}
               required
-            />
+            />*/}
             <Input
               s={12}
               validate
@@ -95,13 +116,19 @@ class CreateDocument extends Component {
               <option value="public">Public</option>
               <option value="private">Private</option>
             </Input>
-
-            <Input
-              type="submit"
-              value="Save"
-              className="btn waves-effect waves-light"
-            />
           </Row>
+          <FroalaEditor
+            validate
+            tag="textarea"
+            config={this.config}
+            model={this.state.model}
+            onModelChange={this.handleModelChange}
+          />
+          <Input
+            type="submit"
+            value="Save"
+            className="btn waves-effect waves-light"
+          />
         </form>
       </div>
     );
