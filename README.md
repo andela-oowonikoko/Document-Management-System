@@ -7,6 +7,76 @@
 This is a system (API) that manages documents with users and user roles. Each document defines access rights; the document defines which roles can access it. Also, each document specifies the date it was published. It is built with NodeJS, Express and Postgres as it's database.
 Source code employs ES6 syntax traspiled down to ES5 using Babel.
 
+### Features
+---
+
+**Users**
+* Users can sign up/ log into the application
+* Regular Users see a dashboard upon sign up/ login where they can
+  * View documents (My Documents)
+    * Create Documents
+    * Edit documents
+    * Delete documents
+    * View their documents
+    * Search for documents
+    * Documents have different access levels (public and private).
+  * View All Documents (All Documents)
+    * View other users documents on public access
+    * Search for documents
+* Admin users from their dashboard can
+  * View all users
+  * Delete any user
+  * Search for users
+  * Search for documents
+
+
+**Documents**:
+Documents can be created and must have:
+- title
+- content
+- access; set by default to public but can be any of `private or public`
+
+**Authentication**:
+Users are authenticated and validated using JSON web token (JWT).
+By generating a token on registration and login, API endpoints and documents are protected from unauthorised access.
+Requests to protected routes are validated using the generated token.
+
+
+### Endpoints
+Here's the collection of routes.
+
+#### Users
+EndPoint                      |   Functionality
+------------------------------|------------------------
+POST /users/login         |   Logs in a user.
+POST /users/logout        |   Logs out a user.
+POST /users               |   Creates a new user.
+GET /users                |   Gets all users (available to only the Admin).
+GET /users/:id           |   Finds user by id.
+PUT /users/:id           |   Updates a user's attributes based on the id specified
+DELETE /users/:id        |   Deletes user (available only to the Admin)
+GET /users/:id/documents   | Gets all documents for a particular user
+
+#### Documents
+EndPoint                      |   Functionality
+------------------------------|------------------------
+POST /documents           |   Creates a new document instance.
+GET /documents            |   Gets all documents.
+GET /documents/:id       |   Find document by id.
+PUT /documents/:id       |   Updates a document attributes.
+DELETE /documents/:id    |   Delete document.
+GET search/documents/?q=${query} | Get all documents with title containing the search query
+
+#### Roles
+EndPoint                      |   Functionality
+------------------------------|------------------------
+GET /roles/               |   Get all Roles.
+POST /roles/               |   Create a Role.
+PUT /roles/:id               |   Edit a Role.
+DELETE /roles/:id               |   Delete a Role.
+
+It should be noted that the endpoints for roles here are only available to the Admin.
+
 
 ### Technologies Used
 ---
