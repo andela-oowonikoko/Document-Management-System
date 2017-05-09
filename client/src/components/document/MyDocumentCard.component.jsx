@@ -13,6 +13,9 @@ require('froala-editor/css/froala_editor.pkgd.min.css');
 
 const FroalaEditor = require('react-froala-wysiwyg');
 
+// let FroalaEditor = require('react-froala-wysiwyg');
+let FroalaEditorView = require('react-froala-wysiwyg/FroalaEditorView');
+
 /**
  * @class MyDocumentCard
  * @extends {React.Component}
@@ -126,24 +129,9 @@ class MyDocumentCard extends React.Component {
                   <i className="material-icons">info</i>
                 </Button>}
             >
-              <form
-                className="col s12"
-                method="post"
-                onSubmit={e => this.onViewUpdate(e)}
-              >
-                <FroalaEditor
-                  validate
-                  tag="textarea"
-                  config={this.config}
-                  model={this.state.content === ''
-                  ? this.props.document.content
-                  : this.state.content}
-                  onModelChange={this.handleModelChange}
-                />
-                <Button className="teal lighten-2" waves="light" type="submit">
-                  UPDATE
-                </Button>
-              </form>
+              <FroalaEditorView
+                model={this.props.document.content}
+              />
             </Modal>
             {this.props.currentUser.userId ===
             this.props.document.ownerId && <Modal
