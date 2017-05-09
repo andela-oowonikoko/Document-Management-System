@@ -45,7 +45,7 @@ Requests to protected routes are validated using the generated token.
 ### Endpoints
 ---
 
-Here's the collection of routes.
+This is the [link](https://mydms-staging.herokuapp.com) to the api documentation of this app. Here's the collection of routes.
 
 #### Users
 EndPoint                      |   Functionality
