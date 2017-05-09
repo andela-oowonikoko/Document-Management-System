@@ -40,7 +40,7 @@ const User = {
     db.User
       .findOne({ where: { email: req.body.email } })
       .then((user) => {
-        if (user && user.validPassword(req.body.password)) {
+        if (user && user.isPasswordValid(req.body.password)) {
           user.update({ active: true });
           const token = Authentication.getToken(user);
           user = Helper.getUserProfile(user);

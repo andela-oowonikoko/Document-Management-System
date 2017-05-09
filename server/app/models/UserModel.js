@@ -92,7 +92,7 @@ module.exports = (sequelize, DataTypes) => {
       generateHash() {
         this.password = bcrypt.hashSync(this.password, bcrypt.genSaltSync(8));
       },
-      validPassword(password) {
+      isPasswordValid(password) {
         return bcrypt.compareSync(password, this.password);
       },
     },
