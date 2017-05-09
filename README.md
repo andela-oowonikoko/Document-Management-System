@@ -43,6 +43,8 @@ Requests to protected routes are validated using the generated token.
 
 
 ### Endpoints
+---
+
 Here's the collection of routes.
 
 #### Users
