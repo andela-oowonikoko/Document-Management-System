@@ -98,7 +98,7 @@ const getData = {
   getUserName(req, res, next) {
     db.User
       .findOne({
-        where: { username: req.query.q },
+        where: { username: { $iLike: `%${req.query.q}%` } },
       })
       .then((user) => {
         if (!user) {
