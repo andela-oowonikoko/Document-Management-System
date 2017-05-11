@@ -31,6 +31,7 @@ export function userSignupRequest(userData) {
       localStorage.setItem('token', token);
       setHeaderToken(token);
       dispatch(setCurrentUser(jwt.decode(token)));
+      window.location = '/app/document';
     });
   };
 }

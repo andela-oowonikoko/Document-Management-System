@@ -132,7 +132,7 @@ export function updateDocument(data) {
     return axios.put(`/documents/${data.id}`, data)
       .then(res => {
         res.data;
-        window.location = '/app/document';
+        window.location = '/app/mydocument';
       })
       .then(data => dispatch(documentUpdated(data)));
   };

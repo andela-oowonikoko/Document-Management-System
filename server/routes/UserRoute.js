@@ -1,7 +1,10 @@
 import path from 'path';
 import express from 'express';
-import User from '../app/controllers/user';
-import Auth from '../app/middlewares/Auth';
+import User from '../app/controllers/UserController';
+import Authentication from '../app/middlewares/Authentication';
+import Validation from '../app/middlewares/Validation';
+import hasPermission from '../app/middlewares/hasPermission';
+import getData from '../app/middlewares/getData';
 
 const userRouter = express.Router();
 
@@ -94,11 +97,11 @@ userRouter.route('/users')
    *         schema:
    *           $ref: '#/definitions/User'
    */
-  .get(Auth.verifyToken,
-    Auth.validateSearch,
-    Auth.hasAdminPermission,
+  .get(Authentication.verifyToken,
+    Validation.validateSearch,
+    hasPermission.hasAdminPermission,
     User.getAll)
-  .post(Auth.validateUserInput, User.create);
+  .post(Validation.validateUserInput, User.create);
 
 // Logs a user in
 /**
@@ -150,7 +153,7 @@ userRouter.route('/users/login')
    *         schema:
    *           $ref: '#/definitions/Login'
    */
-  .post(Auth.validateLoginInput, User.login);
+  .post(Validation.validateLoginInput, User.login);
 
 // Logs a user out
 /**
@@ -190,7 +193,7 @@ userRouter.route('/users/logout')
    *         schema:
    *           $ref: '#/definitions/Logout'
    */
-  .post(Auth.verifyToken, User.logout);
+  .post(Authentication.verifyToken, User.logout);
 
 // Find, Update and Delete user
 /**
@@ -319,10 +322,12 @@ userRouter.route('/users/:id')
    *            items:
    *              $ref: '#/definitions/Update'
    */
-  .get(Auth.verifyToken, Auth.getSingleUser, User.getUser)
-  .put(Auth.verifyToken, Auth.validateUserUpdate, User.update)
-  .delete(Auth.verifyToken, Auth.validateDeleteUser,
-   Auth.hasAdminPermission, User.delete);
+  .get(Authentication.verifyToken, getData.getSingleUser, User.getUser)
+  .put(Authentication.verifyToken,
+    Validation.validateUserUpdate,
+    User.update)
+  .delete(Authentication.verifyToken, Validation.validateDeleteUser,
+   hasPermission.hasAdminPermission, User.delete);
 
 // Find all documents belonging to the user.
 /**
@@ -369,7 +374,9 @@ userRouter.route('/users/:id/documents')
    *           items:
    *             $ref: '#/definitions/FetchDoc'
    */
-  .get(Auth.verifyToken, Auth.validateSearch, User.findUserDocuments);
+  .get(Authentication.verifyToken,
+    Validation.validateSearch,
+    User.findUserDocuments);
 
 // Search for a user
 /**
@@ -416,6 +423,8 @@ userRouter.route('/search/users/')
    *           items:
    *             $ref: '#/definitions/SearchUser'
    */
-  .get(Auth.verifyToken, Auth.getUserName, User.getUserName);
+  .get(Authentication.verifyToken,
+    getData.getUserName,
+    User.getUserName);
 
 export default userRouter;

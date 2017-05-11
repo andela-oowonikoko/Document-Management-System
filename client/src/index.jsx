@@ -11,6 +11,8 @@ import rootReducer from './rootReducer';
 import { setCurrentUser } from './actions/loginActions';
 import setHeaderToken from './utils/setHeaderToken';
 
+require('./font-awesome/scss/font-awesome.scss');
+
 const history = createHistory();
 
 const store = createStore(

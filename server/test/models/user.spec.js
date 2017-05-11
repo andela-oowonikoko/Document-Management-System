@@ -116,6 +116,9 @@ describe('User Model', () => {
     it('should login a user', () => {
       db.User.findOne({ where: { email: regularUser.email } })
         .then((user) => {
+          decryptPassword = user.isPasswordValid(helper.regularUser.password);
+          expect(decryptPassword)
+            .to.be.equal(true);
           expect(user.password)
             .to.not.equal(helper.regularUser.password);
         });
